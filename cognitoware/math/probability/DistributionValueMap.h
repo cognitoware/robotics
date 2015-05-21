@@ -1,8 +1,8 @@
 /*
  * DistributionValueMap.h
  *
- *  Created on: Jan 19, 2015
- *      Author: Alan Oursland
+ *  Copyright (c) 2015, Norman Alan Oursland
+ *  All rights reserved.
  */
 
 #ifndef MATH_PROBABILITY_DISTRIBUTIONVALUEMAP_H_

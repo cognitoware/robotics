@@ -1,8 +1,8 @@
 /*
  * ConditionalMap_test.cpp
  *
- *  Created on: Jan 17, 2015
- *      Author: Alan Oursland
+ *  Copyright (c) 2015, Norman Alan Oursland
+ *  All rights reserved.
  */
 
 #include "ConditionalMap.h"

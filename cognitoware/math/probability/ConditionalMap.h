@@ -1,8 +1,8 @@
 /*
  * ConditionalMap.h
  *
- *  Created on: Jan 17, 2015
- *      Author: Alan Oursland
+ *  Copyright (c) 2015, Norman Alan Oursland
+ *  All rights reserved.
  */
 
 #ifndef COGNITOWARE_COGNITOWARE_MATH_PROBABILITY_CONDITIONALMAP_H_

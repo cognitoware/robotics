@@ -1,8 +1,8 @@
 /*
  * BayesDistribution_test.cpp
  *
- *  Created on: Jan 19, 2015
- *      Author: Alan Oursland
+ *  Copyright (c) 2015, Norman Alan Oursland
+ *  All rights reserved.
  */
 
 #include "cognitoware/math/probability/BayesDistribution.h"

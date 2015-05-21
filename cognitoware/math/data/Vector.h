@@ -1,8 +1,8 @@
 /*
  * Vector.h
  *
- *  Created on: Jan 15, 2015
- *      Author: Alan Oursland
+ *  Copyright (c) 2015, Norman Alan Oursland
+ *  All rights reserved.
  */
 
 #ifndef COGNITOWARE_MATH_DATA_VECTOR_H_

@@ -1,8 +1,8 @@
 /*
  * RandomDistribution.h
  *
- *  Created on: Jan 18, 2015
- *      Author: Alan Oursland
+ *  Copyright (c) 2015, Norman Alan Oursland
+ *  All rights reserved.
  */
 
 #ifndef MATH_PROBABILITY_RANDOMDISTRIBUTION_H_

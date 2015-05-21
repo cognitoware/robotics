@@ -1,8 +1,9 @@
 /*
  * Vector_test.cpp
  *
- *  Created on: Jan 15, 2015
- *      Author: Alan Oursland
+ *  Copyright (c) 2015, Norman Alan Oursland
+ *  All rights reserved.
+ *
  */
 
 #include "cognitoware/math/data/Vector.h"
