@@ -114,7 +114,7 @@ TEST(FaultySensorDetection, main) {
   for (int i = 0; i < 25; i++) {
     SensorReading observation = sensor.CreateObservation(&generator);
     std::cout << observation.at(0) << std::endl;
-    belief = sensorModel->BayesianInference(std::move(observation), belief);
+    belief = sensorModel->BayesianInference(observation, belief);
     std::cout << belief->ProbabilityOf(SensorState::Normal) << std::endl;
   }
 

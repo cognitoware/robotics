@@ -45,3 +45,4 @@ Temporary Items
 # Build output files
 *.o
 lib*.a
+*.exe
