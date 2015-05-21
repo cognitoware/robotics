@@ -46,3 +46,4 @@ Temporary Items
 *.o
 lib*.a
 *.exe
+*.d
