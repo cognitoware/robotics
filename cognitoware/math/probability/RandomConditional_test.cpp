@@ -20,13 +20,8 @@ DEFINE_VECTOR1(X);
 DEFINE_VECTOR1(Y);
 
 class RC : RandomConditional<X, Y> {
-  double ConditionalProbabilityOf(X x, Y y) const override {
+  double ConditionalProbabilityOf(X, Y) const override {
     return 0.0;
-  }
-  std::shared_ptr<RandomDistribution<Y>> BayesianInference(
-      X observation, std::shared_ptr<const RandomDistribution<Y>> belief) const
-          override {
-    return nullptr;
   }
 };
 

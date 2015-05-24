@@ -23,20 +23,6 @@ class Vector {
 public:
   static constexpr std::size_t Order = SIZE;
 
-//  Matrix Cross(const SUBTYPE& v) const {
-//    std::vector<double> m(order() * v.order());
-//    int k = 0;
-//    for (unsigned int i = 0; i < order(); i++) {
-//      double a = at(i);
-//      for (unsigned int j = 0; j < v.order(); j++) {
-//        double b = v[j];
-//        m[k] = a * b;
-//        k++;
-//      }
-//    }
-//    return Matrix(order(), v.order(), m);
-//  }
-
   double Dot(const SUBTYPE& v2) const {
     const Vector<SUBTYPE, SIZE>& v1 = *this;
     double result = 0.0;
@@ -61,25 +47,15 @@ public:
   std::size_t order() const {
     return SIZE;
   }
+
   double& at(int i) {
     return a_[i];
   }
+
   double at(int i) const {
     return a_[i];
   }
 
-//  SUBTYPE operator*(const Matrix& m) const {
-//    const SUBTYPE& v = *this;
-//    if (v.order() != m.rows())
-//      throw std::invalid_argument("Order/row mismatch.");
-//    std::vector<double> result(v.order());
-//    for (unsigned int col = 0; col < m.columns(); col++) {
-//      for (unsigned int row = 0; row < m.rows(); row++) {
-//        result[row] += v[row] * m.at(row, col);
-//      }
-//    }
-//    return SUBTYPE(result);
-//  }
   SUBTYPE operator+(const SUBTYPE& v2) const {
     const Vector<SUBTYPE, SIZE>& v1 = *this;
     SUBTYPE result;
@@ -89,6 +65,7 @@ public:
     }
     return result;
   }
+
   SUBTYPE operator-(const SUBTYPE& v2) const {
     const Vector<SUBTYPE, SIZE>& v1 = *this;
     SUBTYPE result;
@@ -98,6 +75,7 @@ public:
     }
     return result;
   }
+
   bool operator<(const SUBTYPE& v2) const {
     if (this == &v2) return false;
     const Vector<SUBTYPE, SIZE>& v1 = *this;
@@ -107,6 +85,7 @@ public:
     }
     return result;
   }
+
   bool operator>(const SUBTYPE& v2) const {
     if (this == &v2) return false;
     const Vector<SUBTYPE, SIZE>& v1 = *this;
@@ -116,10 +95,12 @@ public:
     }
     return result;
   }
+
   bool operator==(const SUBTYPE& v) const {
     if (this == &v) return true;
     return a_ == v.a_;
   }
+
   // operator= is implicitly declared as deleted in subclasses
   // because it also defines a move assignment operator.
   void copyAssign(const SUBTYPE& v) {
@@ -127,14 +108,17 @@ public:
       a_ = v.a_;
     }
   }
+
   void moveAssign(SUBTYPE&& v) {
     if (this != &v) {
       a_ = std::move(v.a_);
     }
   }
+
   double& operator[](int i) {
     return a_[i];
   }
+
   double operator[](int i) const {
     return a_[i];
   }

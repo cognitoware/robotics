@@ -23,10 +23,11 @@ class BayesDistribution : public RandomDistribution<X> {
 public:
   BayesDistribution(std::shared_ptr<const RandomDistribution<X>> prior,
                     std::shared_ptr<const RandomConditional<Y, X>> sensorModel,
-                    Y observation)
-      : prior_(prior), sensorModel_(sensorModel), data_(observation) {
+                    Y observation) :
+      prior_(prior), sensorModel_(sensorModel), data_(observation) {
 
   }
+
   virtual ~BayesDistribution() {
   }
 
@@ -55,24 +56,18 @@ public:
     return normalizer_;
   }
 
-  // TODO: Redesign alias
-//  public override T AliasAs<T>() {
-//    T result = base.AliasAs<T>();
-//    if( result == null ) {
-//      result = SensorModel.LikelihoodOf(RandomDistribution<X>) as T;
-//    }
-//    return result;
-//  }
-
   const RandomConditional<Y, X>& sensor_model() const {
     return *sensorModel_;
   }
+
   const Y& data() const {
     return data_;
   }
+
   double& normalizer() {
     return normalizer_;
   }
+
   double normalizer() const {
     return normalizer_;
   }

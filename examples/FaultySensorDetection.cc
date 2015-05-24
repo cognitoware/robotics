@@ -1,7 +1,7 @@
 /*
  * FaultySensorDetection.cc
  *
- *  This is based on Example 2.1 from "Probabilistic Robotics" by Fox, Thrun,
+ *  This is based on exercise 2.1 from "Probabilistic Robotics" by Fox, Thrun,
  *  and Burgard.
  *
  *  Copyright (c) 2015, Norman Alan Oursland
@@ -10,37 +10,41 @@
 
 #include "cognitoware/math/data/Vector.h"
 #include "cognitoware/math/probability/ConditionalMap.h"
+#include "cognitoware/math/probability/discrete/DistributionValueMap.h"
+#include "cognitoware/math/probability/ProbabilityUtil.h"
 #include "cognitoware/math/probability/RandomDistribution.h"
 #include "cognitoware/math/probability/RangedUniform.h"
-#include "cognitoware/math/probability/DistributionValueMap.h"
 #include "gtest/gtest.h"
 
 #include <iostream>
+#include <memory>
 #include <random>
 #include <utility>
 
 using ::cognitoware::math::data::Vector;
 using ::cognitoware::math::probability::ConditionalMap;
+using ::cognitoware::math::probability::RandomConditional;
 using ::cognitoware::math::probability::RandomDistribution;
 using ::cognitoware::math::probability::RangedUniform;
-using ::cognitoware::math::probability::DistributionValueMap;
+using ::cognitoware::math::probability::discrete::DistributionValueMap;
+using ::cognitoware::math::probability::BayesianInference;
 
 namespace examples {
 
 // This single-element vector represents a value read from a sensor.
 class SensorReading : public Vector<SensorReading, 1> {
 public:
-  SensorReading()
-      : Vector( { 0.0 }) {
+  SensorReading() :
+      Vector( { 0.0 }) {
   }
-  SensorReading(double d)
-      : Vector( { d }) {
+  SensorReading(double d) :
+      Vector( { d }) {
   }
-  SensorReading(const SensorReading& that)
-      : Vector<SensorReading, 1>(that) {
+  SensorReading(const SensorReading& that) :
+      Vector<SensorReading, 1>(that) {
   }
-  SensorReading(SensorReading&& that)
-      : Vector<SensorReading, 1>(that) {
+  SensorReading(SensorReading&& that) :
+      Vector<SensorReading, 1>(that) {
   }
 };
 
@@ -55,8 +59,8 @@ enum class SensorState {
 // what distribution an observation is selected from.
 class Sensor {
 public:
-  Sensor(SensorState state)
-      : state_(state) {
+  Sensor(SensorState state) :
+      state_(state) {
   }
   SensorReading CreateObservation(std::default_random_engine* generator) {
     std::uniform_real_distribution<double> dist(0, 1);
@@ -77,19 +81,18 @@ class SensorModel : public ConditionalMap<SensorReading, SensorState> {
 public:
   SensorModel() {
     Set(SensorState::Normal,
-        std::make_shared<RangedUniform<SensorReading>>(
-            SensorReading(0.0),
+        std::make_shared<RangedUniform<SensorReading>>(SensorReading(0.0),
             SensorReading(3.0)));
     Set(SensorState::Faulty,
-        std::make_shared<RangedUniform<SensorReading>>(
-            SensorReading(0.0),
+        std::make_shared<RangedUniform<SensorReading>>(SensorReading(0.0),
             SensorReading(1.0)));
   }
 };
 
 TEST(FaultySensorDetection, main) {
   // Create and validate the sensor model.
-  auto sensorModel = std::make_shared<SensorModel>();
+  std::shared_ptr<const RandomConditional<SensorReading, SensorState>> sensorModel =
+      std::make_shared<SensorModel>();
   EXPECT_EQ(1.0 / 3.0,
       sensorModel->ConditionalProbabilityOf(SensorReading(0.5),
           SensorState::Normal));
@@ -97,7 +100,7 @@ TEST(FaultySensorDetection, main) {
       sensorModel->ConditionalProbabilityOf(SensorReading(0.5),
           SensorState::Faulty));
 
-  // Create a simulated fauly sensor.
+  // Create a simulated faulty sensor.
   Sensor sensor(SensorState::Faulty);
   // Create and validate a prior belief that the sensor is probably in a normal
   // operational state.
@@ -113,9 +116,8 @@ TEST(FaultySensorDetection, main) {
   std::default_random_engine generator(0);
   for (int i = 0; i < 25; i++) {
     SensorReading observation = sensor.CreateObservation(&generator);
-    std::cout << observation.at(0) << std::endl;
-    belief = sensorModel->BayesianInference(observation, belief);
-    std::cout << belief->ProbabilityOf(SensorState::Normal) << std::endl;
+    belief = BayesianInference<SensorReading, SensorState>(belief, sensorModel, observation);
+    // std::cout << belief->ProbabilityOf(SensorState::Normal) << std::endl;
   }
 
 }

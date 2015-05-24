@@ -17,7 +17,7 @@ DEFINE_VECTOR1(VT1);
 
 TEST(VectorTest, ctor1) {
   VT1 v;
-  ASSERT_EQ(1, v.order());
+  ASSERT_EQ(std::size_t(1), v.order());
   ASSERT_EQ(0.0, v.at(0));
   ASSERT_EQ(0.0, v[0]);
   ASSERT_EQ("{0}", v.AsString());

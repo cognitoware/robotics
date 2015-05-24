@@ -10,7 +10,6 @@
 
 #include "cognitoware/math/probability/RandomConditional.h"
 #include "cognitoware/math/probability/RandomDistribution.h"
-#include "cognitoware/math/probability/BayesDistribution.h"
 
 #include <map>
 #include <memory>
@@ -25,29 +24,31 @@ namespace probability {
 template<typename X, typename Y>
 class ConditionalMap : public RandomConditional<X, Y> {
 public:
-  ConditionalMap() {}
-  virtual ~ConditionalMap() {}
+  ConditionalMap() {
+  }
+
+  virtual ~ConditionalMap() {
+  }
+
   double ConditionalProbabilityOf(X x, Y y) const override {
-    // TODO: Handle case for no y.
-    return map_.at(y)->ProbabilityOf(x);
+    double result = 0.0;
+    auto key_value = map_.find(y);
+    if (key_value != map_.end()) {
+      result = key_value->second->ProbabilityOf(x);
+    }
+    return result;
   }
-  std::shared_ptr<RandomDistribution<Y>> BayesianInference(
-      X observation, std::shared_ptr<const RandomDistribution<Y>> belief) const
-          override {
-    auto result = new BayesDistribution<Y, X>(belief, this->shared_from_this(),
-        observation);
-    return std::shared_ptr<RandomDistribution<Y>>(result);
-  }
+
   void Set(Y y, std::shared_ptr<RandomDistribution<X>> x) {
     map_[y] = x;
   }
 
 private:
-  std::map<Y, std::shared_ptr<RandomDistribution<X>>> map_;
+  std::map<Y, std::shared_ptr<RandomDistribution<X>>>map_;
 };
 
-}  // namespace probability
-}  // namespace math
-}  // namespace cognitoware
+} // namespace probability
+} // namespace math
+} // namespace cognitoware
 
 #endif /* COGNITOWARE_COGNITOWARE_MATH_PROBABILITY_CONDITIONALMAP_H_ */

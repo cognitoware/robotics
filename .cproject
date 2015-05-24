@@ -75,8 +75,8 @@
 					</folderInfo>
 					<sourceEntries>
 						<entry excluding="examples|cognitoware" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
-						<entry excluding="math/probability/DistributionValueMap_test.cpp|math/probability/BayesDistribution_test.cpp|math/probability/RangedUniform_test.cpp|math/probability/RandomDistribution_test.cpp|math/probability/RandomConditional_test.cpp|math/probability/ConditionalMap_test.cpp|math/data/VectorRange_test.cpp|math/data/Vector_test.cpp" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="cognitoware"/>
-						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="examples"/>
+						<entry excluding="math/probability/discrete/MarkovChain_test.cpp|math/probability/discrete/DiscreteConditional_test.cpp|math/probability/discrete/ConditionalValueMap_test.cpp|math/probability/DistributionValueMap_test.cpp|math/probability/BayesDistribution_test.cpp|math/probability/RangedUniform_test.cpp|math/probability/RandomDistribution_test.cpp|math/probability/RandomConditional_test.cpp|math/probability/ConditionalMap_test.cpp|math/data/VectorRange_test.cpp|math/data/Vector_test.cpp" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="cognitoware"/>
+						<entry excluding="WeatherMarkovChain.cc|FaultySensorDetection.cc" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="examples"/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
@@ -156,8 +156,8 @@
 					</folderInfo>
 					<sourceEntries>
 						<entry excluding="examples|cognitoware" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
-						<entry excluding="math/probability/DistributionValueMap_test.cpp|math/probability/BayesDistribution_test.cpp|math/probability/RangedUniform_test.cpp|math/probability/RandomDistribution_test.cpp|math/probability/RandomConditional_test.cpp|math/probability/ConditionalMap_test.cpp|math/data/VectorRange_test.cpp|math/data/Vector_test.cpp" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="cognitoware"/>
-						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="examples"/>
+						<entry excluding="math/probability/discrete/MarkovChain_test.cpp|math/probability/discrete/DiscreteConditional_test.cpp|math/probability/discrete/ConditionalValueMap_test.cpp|math/probability/DistributionValueMap_test.cpp|math/probability/BayesDistribution_test.cpp|math/probability/RangedUniform_test.cpp|math/probability/RandomDistribution_test.cpp|math/probability/RandomConditional_test.cpp|math/probability/ConditionalMap_test.cpp|math/data/VectorRange_test.cpp|math/data/Vector_test.cpp" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="cognitoware"/>
+						<entry excluding="WeatherMarkovChain.cc|FaultySensorDetection.cc" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="examples"/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>

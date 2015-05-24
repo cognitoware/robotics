@@ -9,6 +9,7 @@ RM := rm -rf
 # All of the sources participating in the build are defined here
 -include sources.mk
 -include examples/subdir.mk
+-include cognitoware/math/probability/discrete/subdir.mk
 -include cognitoware/math/probability/subdir.mk
 -include cognitoware/math/data/subdir.mk
 -include subdir.mk

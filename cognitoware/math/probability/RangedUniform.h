@@ -26,18 +26,23 @@ namespace probability {
 template<typename X>
 class RangedUniform : public RandomDistribution<X> {
 public:
-  RangedUniform(X min, X max) : range_(std::move(min), std::move(max)) {
+  RangedUniform(X min, X max) :
+      range_(std::move(min), std::move(max)) {
     static_assert(std::is_base_of<Vector<X, X::Order>, X>::value, "X must derive from Vector");
   }
-  ~RangedUniform() override {}
+
+  ~RangedUniform() override {
+  }
+
   double ProbabilityOf(X x) const override {
-    if( range_.Contains(x) )
-      return 1.0 / range_.area();
+    if (range_.Contains(x)) return 1.0 / range_.area();
     return 0.0;
   }
+
   X Sample(std::default_random_engine* generator) const override {
     return range_.Sample(generator);
   }
+
 private:
   VectorRange<X> range_;
 };
