@@ -43,7 +43,7 @@ public:
   virtual ~DistributionValueMap() {
   }
 
-  double ProbabilityOf(X x) const override {
+  double ProbabilityOf(const X& x) const override {
     double result = 0.0;
     auto it = map_.find(x);
     if (it != map_.end()) {

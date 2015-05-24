@@ -26,7 +26,7 @@ public:
   virtual ~RandomConditional() {
   }
 
-  virtual double ConditionalProbabilityOf(X x, Y y) const = 0;
+  virtual double ConditionalProbabilityOf(const X& x, const Y& y) const = 0;
 
 };
 

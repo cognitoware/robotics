@@ -23,7 +23,7 @@ public:
   virtual ~RandomDistribution() {
   }
 
-  virtual double ProbabilityOf(X x) const = 0;
+  virtual double ProbabilityOf(const X& x) const = 0;
 
   virtual X Sample(std::default_random_engine* generator) const = 0;
 };

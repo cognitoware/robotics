@@ -101,6 +101,11 @@ public:
     return a_ == v.a_;
   }
 
+  Vector<SUBTYPE, SIZE>& operator=(const Vector<SUBTYPE, SIZE>& that) {
+    this->a_ = that.a_;
+    return *this;
+  }
+
   // operator= is implicitly declared as deleted in subclasses
   // because it also defines a move assignment operator.
   void copyAssign(const SUBTYPE& v) {
@@ -125,28 +130,28 @@ public:
 
 protected:
   Vector() {
-    static_assert(std::is_base_of<Vector<SUBTYPE, SIZE>, SUBTYPE>::value, "SUBTYPE must derive from Vector");
+    static_assert(std::is_base_of<Vector<SUBTYPE, SIZE>, SUBTYPE>::value,
+        "SUBTYPE must derive from Vector");
     a_.resize(SIZE);
   }
 
-  explicit Vector(std::vector<double> a)
-      : a_(std::move(a)) {
+  explicit Vector(std::vector<double> a) :
+      a_(std::move(a)) {
     a_.resize(SIZE);
   }
 
-  explicit Vector(const Vector<SUBTYPE, SIZE>& v)
-      : a_(v.a_) {
+  explicit Vector(const Vector<SUBTYPE, SIZE>& v) :
+      a_(v.a_) {
     a_.resize(SIZE);
   }
 
   virtual ~Vector() {
   }
 
-  Vector(Vector<SUBTYPE, SIZE> && v)
-      : a_(std::move(v.a_)) {
+  Vector(Vector<SUBTYPE, SIZE> && v) :
+      a_(std::move(v.a_)) {
     a_.resize(SIZE);
   }
-
 
 private:
   std::vector<double> a_;
@@ -159,9 +164,8 @@ public: \
   X(double x) : Vector( { x }) {} \
   explicit X(const X& v) : Vector(v) {} \
   X(const X&& v) : Vector(v) {} \
+  X& operator=(const X& that) { Vector<X, 1>::operator=(that); return *this; } \
 }
-
-
 
 }  // namespace data
 }  // namespace math

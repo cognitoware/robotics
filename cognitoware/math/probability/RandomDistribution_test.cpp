@@ -19,7 +19,7 @@ DEFINE_VECTOR1(X);
 
 class Impulse : RandomDistribution<X> {
 public:
-  double ProbabilityOf(X x) const override {
+  double ProbabilityOf(const X& x) const override {
     if (x[0] == 0.0) return 1.0;
     return 0.0;
   }

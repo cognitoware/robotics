@@ -34,7 +34,7 @@ public:
   ~RangedUniform() override {
   }
 
-  double ProbabilityOf(X x) const override {
+  double ProbabilityOf(const X& x) const override {
     if (range_.Contains(x)) return 1.0 / range_.area();
     return 0.0;
   }

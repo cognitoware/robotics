@@ -92,7 +92,7 @@ public:
     return result;
   }
 
-  double ConditionalProbabilityOf(X end, X start) const override {
+  double ConditionalProbabilityOf(const X& end, const X& start) const override {
     auto end_map = transitions_.find(start);
     if (end_map == transitions_.end()) {
       return 0.0;

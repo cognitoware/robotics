@@ -30,17 +30,17 @@ public:
   virtual ~ConditionalMap() {
   }
 
-  double ConditionalProbabilityOf(X x, Y y) const override {
+  void Set(Y y, std::shared_ptr<RandomDistribution<X>> x) {
+    map_[y] = x;
+  }
+
+  double ConditionalProbabilityOf(const X& x, const Y& y) const override {
     double result = 0.0;
     auto key_value = map_.find(y);
     if (key_value != map_.end()) {
       result = key_value->second->ProbabilityOf(x);
     }
     return result;
-  }
-
-  void Set(Y y, std::shared_ptr<RandomDistribution<X>> x) {
-    map_[y] = x;
   }
 
 private:

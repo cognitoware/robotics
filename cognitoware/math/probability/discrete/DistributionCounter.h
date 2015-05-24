@@ -36,7 +36,7 @@ public:
     total_++;
   }
 
-  double ProbabilityOf(X x) const override {
+  double ProbabilityOf(const X& x) const override {
     double result = 0.0;
     auto key_value = map_.find(x);
     if (key_value != map_.end()) {
