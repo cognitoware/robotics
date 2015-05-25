@@ -7,7 +7,6 @@
 
 #include <cognitoware/math/probability/discrete/DiscreteConditional.h>
 
-namespace {
 namespace cognitoware {
 namespace math {
 namespace probability {
@@ -15,4 +14,3 @@ namespace probability {
 }  // namespace probability
 }  // namespace math
 }  // namespace cognitoware
-}  // namespace 
