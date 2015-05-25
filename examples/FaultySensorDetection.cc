@@ -118,7 +118,7 @@ TEST(FaultySensorDetection, main) {
   std::default_random_engine generator(0);
   for (int i = 0; i < 25; i++) {
     SensorReading observation = sensor.CreateObservation(&generator);
-    belief = std::make_shared<BayesDistribution<SensorReading, SensorState>>(
+    belief = std::make_shared<BayesDistribution<SensorState, SensorReading>>(
         belief, sensorModel, observation);
     // std::cout << belief->ProbabilityOf(SensorState::Normal) << std::endl;
   }
