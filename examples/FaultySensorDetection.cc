@@ -9,6 +9,7 @@
  */
 
 #include "cognitoware/math/data/Vector.h"
+#include "cognitoware/math/probability/BayesDistribution.h"
 #include "cognitoware/math/probability/ConditionalMap.h"
 #include "cognitoware/math/probability/discrete/DistributionValueMap.h"
 #include "cognitoware/math/probability/ProbabilityUtil.h"
@@ -22,12 +23,13 @@
 #include <utility>
 
 using ::cognitoware::math::data::Vector;
+using ::cognitoware::math::probability::BayesDistribution;
 using ::cognitoware::math::probability::ConditionalMap;
 using ::cognitoware::math::probability::RandomConditional;
 using ::cognitoware::math::probability::RandomDistribution;
 using ::cognitoware::math::probability::RangedUniform;
 using ::cognitoware::math::probability::discrete::DistributionValueMap;
-using ::cognitoware::math::probability::BayesianInference;
+//using ::cognitoware::math::probability::BayesianInference;
 
 namespace examples {
 
@@ -35,10 +37,10 @@ namespace examples {
 class SensorReading : public Vector<SensorReading, 1> {
 public:
   SensorReading() :
-      Vector( { 0.0 }) {
+      Vector({0.0}) {
   }
   SensorReading(double d) :
-      Vector( { d }) {
+      Vector({d}) {
   }
   SensorReading(const SensorReading& that) :
       Vector<SensorReading, 1>(that) {
@@ -116,7 +118,8 @@ TEST(FaultySensorDetection, main) {
   std::default_random_engine generator(0);
   for (int i = 0; i < 25; i++) {
     SensorReading observation = sensor.CreateObservation(&generator);
-    belief = BayesianInference<SensorReading, SensorState>(belief, sensorModel, observation);
+    belief = std::make_shared<BayesDistribution<SensorReading, SensorState>>(
+        belief, sensorModel, observation);
     // std::cout << belief->ProbabilityOf(SensorState::Normal) << std::endl;
   }
 
