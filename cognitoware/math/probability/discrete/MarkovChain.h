@@ -65,7 +65,7 @@ public:
   std::shared_ptr<MarkovChain> Reverse() {
     auto result = std::make_shared<MarkovChain<X>>();
     for (X today : range()) {
-      auto x = BayesianInference(today, DistributionValueMap<X>(domain()));
+      auto x = this->BayesianInference(today, DistributionValueMap<X>(domain()));
       for (X yesterday : domain()) {
         double p = x->ProbabilityOf(yesterday);
         result->Set(yesterday, today, p);

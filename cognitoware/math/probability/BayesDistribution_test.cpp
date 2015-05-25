@@ -16,7 +16,6 @@
 #include <memory>
 
 using cognitoware::math::data::Vector;
-using cognitoware::math::probability::RangedUniform;
 using cognitoware::math::probability::discrete::DistributionValueMap;
 
 namespace cognitoware {

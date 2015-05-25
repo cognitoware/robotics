@@ -8,7 +8,7 @@
 #ifndef MATH_PROBABILITY_DISCRETE_DISCRETECONDITIONAL_H_
 #define MATH_PROBABILITY_DISCRETE_DISCRETECONDITIONAL_H_
 
-#include "cognitoware/math/probability/ConditionalMap.h"
+#include "cognitoware/math/probability/RandomConditional.h"
 
 #include <iterator>
 #include <memory>
