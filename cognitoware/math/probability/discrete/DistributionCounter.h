@@ -47,8 +47,8 @@ public:
   }
 
   X Sample(std::default_random_engine* generator) const override {
-    std::uniform_real_distribution<double> random(0, 1);
-    double select = random(*generator) * total_;
+    std::uniform_real_distribution<double> random(0, total_);
+    double select = random(*generator);
     return this->SelectFromMap(map_, select);
   }
 
