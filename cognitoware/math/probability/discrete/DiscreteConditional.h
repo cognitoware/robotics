@@ -12,6 +12,7 @@
 
 #include <iterator>
 #include <memory>
+#include <vector>
 
 namespace cognitoware {
 namespace math {
@@ -24,8 +25,12 @@ public:
   DiscreteConditional() {
   }
 
-  ~DiscreteConditional() override {
+  virtual ~DiscreteConditional() override {
   }
+
+  virtual std::vector<X> domain() const = 0;
+
+  virtual std::vector<Y> range() const = 0;
 };
 
 }  // namespace discrete

@@ -51,10 +51,10 @@ TEST(DistributionValueMapTest, Sample) {
   double x0_count = 0, x1_count = 0;
   for (int i = 0; i < 1000; ++i) {
     X sample = dvm.Sample(&generator);
-    if(sample == x0) x0_count++;
-    if(sample == x1) x1_count++;
+    if (sample == x0) x0_count++;
+    if (sample == x1) x1_count++;
   }
-  double r = x0_count/x1_count;
+  double r = x0_count / x1_count;
   std::cout << "Selection ratio is " << r << " : 1" << std::endl;
   EXPECT_TRUE(r > 2.5);
   EXPECT_TRUE(r < 3.5);
@@ -93,7 +93,6 @@ TEST(DistributionValueMapTest, Product) {
   EXPECT_EQ(0.9, result2->ProbabilityOf(x1));
 
 }
-
 
 }  // namespace discrete
 }  // namespace probability

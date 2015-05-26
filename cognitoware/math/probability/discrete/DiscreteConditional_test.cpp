@@ -5,12 +5,12 @@
  *  All rights reserved.
  */
 
-#include <cognitoware/math/probability/discrete/DiscreteConditional.h>
+#include "cognitoware/math/probability/discrete/DiscreteConditional.h"
 
 namespace cognitoware {
 namespace math {
 namespace probability {
-namespace discrete{
+namespace discrete {
 
 }  // namespace discrete
 }  // namespace probability

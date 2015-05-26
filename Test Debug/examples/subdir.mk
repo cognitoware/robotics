@@ -5,14 +5,20 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 CC_SRCS += \
 ../examples/FaultySensorDetection.cc \
+../examples/ObservableWeatherBayes.cc \
+../examples/Weather.cc \
 ../examples/WeatherMarkovChain.cc 
 
 CC_DEPS += \
 ./examples/FaultySensorDetection.d \
+./examples/ObservableWeatherBayes.d \
+./examples/Weather.d \
 ./examples/WeatherMarkovChain.d 
 
 OBJS += \
 ./examples/FaultySensorDetection.o \
+./examples/ObservableWeatherBayes.o \
+./examples/Weather.o \
 ./examples/WeatherMarkovChain.o 
 
 

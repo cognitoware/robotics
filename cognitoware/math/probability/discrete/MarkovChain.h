@@ -35,11 +35,10 @@ public:
   ~MarkovChain() override {
   }
 
-  void Set(X end, X start, double p) {
+  void Set(const X& end, const X& start, double p) {
     auto end_map = transitions_.find(start);
     if (end_map == transitions_.end()) {
-      transitions_[start] = std::map<X, double>();
-      end_map = transitions_.find(start);
+      end_map = transitions_.emplace(start, std::map<X, double>()).first;
     }
     end_map->second[end] = p;
     range_[end] = end;
@@ -65,7 +64,8 @@ public:
   std::shared_ptr<MarkovChain> Reverse() {
     auto result = std::make_shared<MarkovChain<X>>();
     for (X today : range()) {
-      auto x = this->BayesianInference(today, DistributionValueMap<X>(domain()));
+      auto x = this->BayesianInference(today,
+          DistributionValueMap<X>(domain()));
       for (X yesterday : domain()) {
         double p = x->ProbabilityOf(yesterday);
         result->Set(yesterday, today, p);
@@ -74,7 +74,7 @@ public:
     return result;
   }
 
-  std::vector<X> domain() {
+  std::vector<X> domain() const override {
     std::vector<X> result;
     result.reserve(range_.size());
     for (auto& pair : range_) {
@@ -83,7 +83,7 @@ public:
     return result;
   }
 
-  std::vector<X> range() {
+  std::vector<X> range() const override {
     std::vector<X> result;
     result.reserve(transitions_.size());
     for (auto& pair : transitions_) {
@@ -95,6 +95,7 @@ public:
   double ConditionalProbabilityOf(const X& end, const X& start) const override {
     auto end_map = transitions_.find(start);
     if (end_map == transitions_.end()) {
+      // TODO: Does zero make sense here? Does an unknown imply zero chance?
       return 0.0;
     }
     auto result = end_map->second.find(end);
@@ -112,7 +113,6 @@ public:
         result->Set(end_map.first, end->second);
       }
     }
-    result->Normalize();
     return result;
   }
 

@@ -5,7 +5,7 @@
  *  All rights reserved.
  */
 
-#include <cognitoware/math/probability/discrete/DiscreteDistribution.h>
+#include "cognitoware/math/probability/discrete/DiscreteDistribution.h"
 #include "gtest/gtest.h"
 
 #include <map>

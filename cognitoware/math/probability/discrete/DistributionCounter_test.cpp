@@ -5,7 +5,7 @@
  *  All rights reserved.
  */
 
-#include <cognitoware/math/probability/discrete/DistributionCounter.h>
+#include "cognitoware/math/probability/discrete/DistributionCounter.h"
 #include "gtest/gtest.h"
 
 #include <iostream>
@@ -50,10 +50,10 @@ TEST(DistributionCounterTest, Sample) {
   double x0_count = 0, x1_count = 0;
   for (int i = 0; i < 1000; ++i) {
     X sample = dc.Sample(&generator);
-    if(sample == x0) x0_count++;
-    if(sample == x1) x1_count++;
+    if (sample == x0) x0_count++;
+    if (sample == x1) x1_count++;
   }
-  double r = x0_count/x1_count;
+  double r = x0_count / x1_count;
   std::cout << "Selection ratio is " << r << " : 1" << std::endl;
   EXPECT_TRUE(r > 2.5);
   EXPECT_TRUE(r < 3.5);
