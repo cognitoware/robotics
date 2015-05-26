@@ -10,7 +10,9 @@
 namespace cognitoware {
 namespace math {
 namespace probability {
+namespace discrete{
 
+}  // namespace discrete
 }  // namespace probability
 }  // namespace math
 }  // namespace cognitoware

@@ -112,6 +112,7 @@ public:
         result->Set(end_map.first, end->second);
       }
     }
+    result->Normalize();
     return result;
   }
 
