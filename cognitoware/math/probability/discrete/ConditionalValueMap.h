@@ -13,6 +13,7 @@
 
 #include <map>
 #include <vector>
+#include <memory>
 
 namespace cognitoware {
 namespace math {
@@ -68,7 +69,7 @@ public:
     domain_[x] = x;
   }
 
-  std::shared_ptr<DistributionValueMap<Y>> LikelihoodOf(X data) {
+  std::shared_ptr<DistributionValueMap<Y>> LikelihoodOf(const X& data) const {
     auto result = std::make_shared<DistributionValueMap<Y>>();
     for (auto& y_map : map_) {
       auto x_value = y_map.second.find(data);
@@ -83,6 +84,21 @@ public:
       X data, const DistributionValueMap<Y>& prior) {
     auto likelihood = LikelihoodOf(data);
     return likelihood->Product(prior);
+  }
+
+  Y SampleLikelihood(const X& x, double p) {
+    for (auto& y_map : map_) {
+      Y y = y_map.first;
+      auto x_value = y_map.second.find(x);
+      if (x_value != y_map.second.end()) {
+        p -= x_value->second;
+        if (p < 0) {
+          return y;
+        }
+      }
+    }
+    throw std::runtime_error(
+        "Conditional distribution is not conditioned on x. Cannot sample.");
   }
 
   template<typename Z>

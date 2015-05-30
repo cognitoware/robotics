@@ -17,8 +17,7 @@ namespace math {
 namespace probability {
 
 template<typename X, typename Y>
-class RandomConditional : public std::enable_shared_from_this<
-    RandomConditional<X, Y>> {
+class RandomConditional {
 public:
   RandomConditional() {
   }

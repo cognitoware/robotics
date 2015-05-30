@@ -6,6 +6,7 @@
 CPP_SRCS += \
 ../cognitoware/math/probability/BayesDistribution_test.cpp \
 ../cognitoware/math/probability/ConditionalMap_test.cpp \
+../cognitoware/math/probability/IndependentPairDistribution_test.cpp \
 ../cognitoware/math/probability/RandomConditional_test.cpp \
 ../cognitoware/math/probability/RandomDistribution_test.cpp \
 ../cognitoware/math/probability/RangedUniform_test.cpp 
@@ -13,6 +14,7 @@ CPP_SRCS += \
 OBJS += \
 ./cognitoware/math/probability/BayesDistribution_test.o \
 ./cognitoware/math/probability/ConditionalMap_test.o \
+./cognitoware/math/probability/IndependentPairDistribution_test.o \
 ./cognitoware/math/probability/RandomConditional_test.o \
 ./cognitoware/math/probability/RandomDistribution_test.o \
 ./cognitoware/math/probability/RangedUniform_test.o 
@@ -20,6 +22,7 @@ OBJS += \
 CPP_DEPS += \
 ./cognitoware/math/probability/BayesDistribution_test.d \
 ./cognitoware/math/probability/ConditionalMap_test.d \
+./cognitoware/math/probability/IndependentPairDistribution_test.d \
 ./cognitoware/math/probability/RandomConditional_test.d \
 ./cognitoware/math/probability/RandomDistribution_test.d \
 ./cognitoware/math/probability/RangedUniform_test.d 

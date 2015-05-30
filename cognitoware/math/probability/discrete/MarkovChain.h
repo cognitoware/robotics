@@ -9,6 +9,7 @@
 #define MATH_PROBABILITY_DISCRETE_MARKOVCHAIN_H_
 
 #include "cognitoware/math/probability/discrete/DiscreteConditional.h"
+#include "cognitoware/math/probability/discrete/DiscreteDistribution.h"
 #include "cognitoware/math/probability/discrete/DistributionValueMap.h"
 #include "cognitoware/math/probability/RandomConditional.h"
 #include "cognitoware/math/probability/RandomDistribution.h"
@@ -105,7 +106,7 @@ public:
     return result->second;
   }
 
-  std::shared_ptr<DistributionValueMap<X>> LikelihoodOf(X data) {
+  std::shared_ptr<DistributionValueMap<X>> LikelihoodOf(const X& data) const {
     auto result = std::make_shared<DistributionValueMap<X>>();
     for (auto& end_map : transitions_) {
       auto end = end_map.second.find(data);
@@ -134,7 +135,7 @@ public:
   }
 
   std::shared_ptr<DistributionValueMap<X>> BayesianInference(
-      X data, const DistributionValueMap<X>& prior) {
+      const X& data, const DistributionValueMap<X>& prior) const {
     auto likelihood = LikelihoodOf(data);
     return likelihood->Product(prior);
   }

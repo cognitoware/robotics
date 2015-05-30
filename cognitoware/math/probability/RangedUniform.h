@@ -16,9 +16,6 @@
 #include <type_traits>
 #include <utility>
 
-using ::cognitoware::math::data::Vector;
-using ::cognitoware::math::data::VectorRange;
-
 namespace cognitoware {
 namespace math {
 namespace probability {
@@ -28,7 +25,7 @@ class RangedUniform : public RandomDistribution<X> {
 public:
   RangedUniform(X min, X max) :
       range_(std::move(min), std::move(max)) {
-    static_assert(std::is_base_of<Vector<X, X::Order>, X>::value, "X must derive from Vector");
+    static_assert(std::is_base_of<data::Vector<X, X::Order>, X>::value, "X must derive from Vector");
   }
 
   ~RangedUniform() override {
@@ -44,7 +41,7 @@ public:
   }
 
 private:
-  VectorRange<X> range_;
+  data::VectorRange<X> range_;
 };
 
 }  // namespace probability

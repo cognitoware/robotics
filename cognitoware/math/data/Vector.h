@@ -158,7 +158,7 @@ private:
 };
 
 #define DEFINE_VECTOR1(X) \
-class X : public Vector<X, 1> { \
+class X : public ::cognitoware::math::data::Vector<X, 1> { \
 public: \
   X() : Vector( { 0.0 }) {} \
   X(double x) : Vector( { x }) {} \
