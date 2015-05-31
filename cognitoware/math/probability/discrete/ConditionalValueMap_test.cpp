@@ -100,6 +100,20 @@ TEST(ConditionalValueMapTest, Marginalize) {
   EXPECT_DOUBLE_EQ(0.66, xz->ConditionalProbabilityOf(x1, z1));
 }
 
+TEST(ConditionalValueMapTest, SampleLikelihood) {
+  CvmXY xy;
+  xy.Set(x0, y0, 0.9);
+  xy.Set(x1, y0, 0.1);
+  xy.Set(x0, y1, 0.2);
+  xy.Set(x1, y1, 0.8);
+
+  // TODO: Likelihood is not normalized. Figure out how to generate sample value.
+  EXPECT_EQ(y0, xy.SampleLikelihood(x0, 0.85));
+  EXPECT_EQ(y1, xy.SampleLikelihood(x0, 0.95));
+  EXPECT_EQ(y0, xy.SampleLikelihood(x1, 0.05));
+  EXPECT_EQ(y1, xy.SampleLikelihood(x1, 0.15));
+}
+
 }  // namespace discrete
 }  // namespace probability
 }  // namespace math

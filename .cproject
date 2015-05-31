@@ -75,7 +75,7 @@
 					</folderInfo>
 					<sourceEntries>
 						<entry excluding="examples|cognitoware" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
-						<entry excluding="robotics/ObservationGenerator_test.cpp|robotics/MarkovActionChain_test.cpp|math/probability/discrete/DistributionValueMap_test.cpp|math/probability/discrete/DistributionCounter_test.cpp|math/probability/discrete/DiscreteDistribution_test.cpp|math/probability/discrete/MarkovChain_test.cpp|math/probability/discrete/DiscreteConditional_test.cpp|math/probability/discrete/ConditionalValueMap_test.cpp|math/probability/DistributionValueMap_test.cpp|math/probability/BayesDistribution_test.cpp|math/probability/RangedUniform_test.cpp|math/probability/RandomDistribution_test.cpp|math/probability/RandomConditional_test.cpp|math/probability/ConditionalMap_test.cpp|math/data/VectorRange_test.cpp|math/data/Vector_test.cpp" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="cognitoware"/>
+						<entry excluding="math/probability/IndependentPairDistribution_test.cpp|robotics/ObservationGenerator_test.cpp|robotics/MarkovActionChain_test.cpp|math/probability/discrete/DistributionValueMap_test.cpp|math/probability/discrete/DistributionCounter_test.cpp|math/probability/discrete/DiscreteDistribution_test.cpp|math/probability/discrete/MarkovChain_test.cpp|math/probability/discrete/DiscreteConditional_test.cpp|math/probability/discrete/ConditionalValueMap_test.cpp|math/probability/DistributionValueMap_test.cpp|math/probability/BayesDistribution_test.cpp|math/probability/RangedUniform_test.cpp|math/probability/RandomDistribution_test.cpp|math/probability/RandomConditional_test.cpp|math/probability/ConditionalMap_test.cpp|math/data/VectorRange_test.cpp|math/data/Vector_test.cpp" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="cognitoware"/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
@@ -155,7 +155,7 @@
 					</folderInfo>
 					<sourceEntries>
 						<entry excluding="examples|cognitoware" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
-						<entry excluding="robotics/ObservationGenerator_test.cpp|robotics/MarkovActionChain_test.cpp|math/probability/discrete/DistributionValueMap_test.cpp|math/probability/discrete/DistributionCounter_test.cpp|math/probability/discrete/DiscreteDistribution_test.cpp|math/probability/discrete/MarkovChain_test.cpp|math/probability/discrete/DiscreteConditional_test.cpp|math/probability/discrete/ConditionalValueMap_test.cpp|math/probability/DistributionValueMap_test.cpp|math/probability/BayesDistribution_test.cpp|math/probability/RangedUniform_test.cpp|math/probability/RandomDistribution_test.cpp|math/probability/RandomConditional_test.cpp|math/probability/ConditionalMap_test.cpp|math/data/VectorRange_test.cpp|math/data/Vector_test.cpp" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="cognitoware"/>
+						<entry excluding="math/probability/IndependentPairDistribution_test.cpp|robotics/ObservationGenerator_test.cpp|robotics/MarkovActionChain_test.cpp|math/probability/discrete/DistributionValueMap_test.cpp|math/probability/discrete/DistributionCounter_test.cpp|math/probability/discrete/DiscreteDistribution_test.cpp|math/probability/discrete/MarkovChain_test.cpp|math/probability/discrete/DiscreteConditional_test.cpp|math/probability/discrete/ConditionalValueMap_test.cpp|math/probability/DistributionValueMap_test.cpp|math/probability/BayesDistribution_test.cpp|math/probability/RangedUniform_test.cpp|math/probability/RandomDistribution_test.cpp|math/probability/RandomConditional_test.cpp|math/probability/ConditionalMap_test.cpp|math/data/VectorRange_test.cpp|math/data/Vector_test.cpp" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="cognitoware"/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
@@ -256,9 +256,8 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="examples|cognitoware" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="cognitoware" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="cognitoware"/>
-						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="examples"/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
@@ -285,6 +284,9 @@
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
 	<storageModule moduleId="refreshScope" versionNumber="2">
+		<configuration configurationName="Examples Debug">
+			<resource resourceType="PROJECT" workspacePath="/Cognitoware"/>
+		</configuration>
 		<configuration configurationName="Debug">
 			<resource resourceType="PROJECT" workspacePath="/Cognitoware"/>
 		</configuration>

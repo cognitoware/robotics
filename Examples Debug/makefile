@@ -13,11 +13,6 @@ RM := rm -rf
 -include cognitoware/math/probability/discrete/subdir.mk
 -include cognitoware/math/probability/subdir.mk
 -include cognitoware/math/data/subdir.mk
--include Examples\ Debug/examples/subdir.mk
--include Examples\ Debug/cognitoware/robotics/subdir.mk
--include Examples\ Debug/cognitoware/math/probability/discrete/subdir.mk
--include Examples\ Debug/cognitoware/math/probability/subdir.mk
--include Examples\ Debug/cognitoware/math/data/subdir.mk
 -include subdir.mk
 -include objects.mk
 

@@ -28,9 +28,4 @@ cognitoware/robotics \
 cognitoware/math/probability/discrete \
 cognitoware/math/probability \
 cognitoware/math/data \
-Examples\ Debug/examples \
-Examples\ Debug/cognitoware/robotics \
-Examples\ Debug/cognitoware/math/probability/discrete \
-Examples\ Debug/cognitoware/math/probability \
-Examples\ Debug/cognitoware/math/data \
 

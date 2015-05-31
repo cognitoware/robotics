@@ -21,6 +21,8 @@ template<typename X, typename U>
 class MarkovActionChain : public math::probability::discrete::DiscreteConditional<
     X, std::pair<X, U>> {
 public:
+  typedef std::pair<X, U> XU;
+
   MarkovActionChain() {
   }
 
@@ -40,9 +42,12 @@ public:
       action_end_map = emplace_result.first;
     }
     action_end_map->second[end] = p;
+    x_[end] = end;
+    u_[action] = action;
+    xu_[XU(start, action)] = XU(start, action);
   }
 
-  double ConditionalProbabilityOf(const X& x, const std::pair<X, U>& xu) const
+  double ConditionalProbabilityOf(const X& x, const XU& xu) const
       override {
     const X& start = xu.first;
     const U& u = xu.second;
@@ -91,8 +96,8 @@ public:
     return result;
   }
 
-  std::vector<std::pair<X, U>> range() const override {
-    std::vector<std::pair<X, U>> result;
+  std::vector<XU> range() const override {
+    std::vector<XU> result;
     result.reserve(xu_.size());
     for (auto& xu_xu : xu_) {
       result.push_back(xu_xu.first);
@@ -101,7 +106,7 @@ public:
   }
 
   std::shared_ptr<math::probability::discrete::DistributionValueMap<X>> Marginalize(
-      const math::probability::RandomDistribution<std::pair<X, U>>& start_action) {
+      const math::probability::RandomDistribution<XU>& start_action) {
     auto result = std::make_shared<
         math::probability::discrete::DistributionValueMap<X>>();
     for (auto& level0 : p_) {
@@ -111,7 +116,7 @@ public:
         for (auto& level2 : level1.second) {
           X end = level2.first;
           double p0 = level2.second;
-          std::pair<X, U> xu(start, action);
+          XU xu(start, action);
           double p1 = start_action.ProbabilityOf(xu);
           double current_end_p = result->ProbabilityOf(end);
           result->Set(end, p0 * p1 + current_end_p);
@@ -126,7 +131,7 @@ private:
   std::map<X, std::map<U, std::map<X, double>>>p_;
   std::map<X, X> x_;
   std::map<U, U> u_;
-  std::map<std::pair<X, U>, std::pair<X, U>> xu_;
+  std::map<XU, XU> xu_;
 };
 
 }

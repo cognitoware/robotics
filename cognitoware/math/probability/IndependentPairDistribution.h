@@ -20,6 +20,8 @@ namespace probability {
 template<typename A, typename B>
 class IndependentPairDistribution : public RandomDistribution<std::pair<A, B>> {
 public:
+  typedef std::pair<A, B> AB;
+
   IndependentPairDistribution(std::shared_ptr<RandomDistribution<A>> a,
                               std::shared_ptr<RandomDistribution<B>> b) :
       a_(a), b_(b) {
@@ -29,12 +31,12 @@ public:
   virtual ~IndependentPairDistribution() {
   }
 
-  double ProbabilityOf(const std::pair<A, B>& t) const override {
+  double ProbabilityOf(const AB& t) const override {
     return a_->ProbabilityOf(t.first) * b_->ProbabilityOf(t.second);
   }
 
-  std::pair<A, B> Sample(std::default_random_engine* generator) const override {
-    return std::pair<A, B>(a_->Sample(generator), b_->Sample(generator));
+  AB Sample(std::default_random_engine* generator) const override {
+    return AB(a_->Sample(generator), b_->Sample(generator));
   }
 
 private:
