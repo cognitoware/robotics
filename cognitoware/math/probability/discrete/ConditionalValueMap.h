@@ -14,6 +14,7 @@
 #include <map>
 #include <vector>
 #include <memory>
+#include <random>
 
 namespace cognitoware {
 namespace math {
@@ -86,7 +87,29 @@ public:
     return likelihood->Product(prior);
   }
 
-  Y SampleLikelihood(const X& x, double p) {
+  double SumLikelihood(const X& x) const {
+    double sum = 0.0;
+    for (auto& y_map : map_) {
+      Y y = y_map.first;
+      auto x_value = y_map.second.find(x);
+      if (x_value != y_map.second.end()) {
+        sum += x_value->second;
+      }
+    }
+    return sum;
+  }
+
+  Y SampleLikelihood(const X& x, std::default_random_engine* generator) const {
+    double sum = SumLikelihood(x);
+    if (sum == 0.0) {
+      throw std::runtime_error(
+          "Conditional distribution is not conditioned on x. Cannot sample.");
+    }
+    std::uniform_real_distribution<double> random(0, sum);
+    return SampleLikelihood(x, random(*generator));
+  }
+
+  Y SampleLikelihood(const X& x, double p) const {
     for (auto& y_map : map_) {
       Y y = y_map.first;
       auto x_value = y_map.second.find(x);

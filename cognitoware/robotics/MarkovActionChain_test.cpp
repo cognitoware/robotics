@@ -45,11 +45,12 @@ TEST(MarkovActionChainTest, Sample) {
   mac.Set(x0, u0, x0, 0.9);
   mac.Set(x1, u0, x0, 0.1);
 
-  ASSERT_THROW(mac.Sample(u0, x1, 0.0), std::runtime_error);
-  ASSERT_THROW(mac.Sample(u1, x0, 0.0), std::runtime_error);
-  EXPECT_EQ(x0, mac.Sample(u0, x0, 0.05));
-  EXPECT_EQ(x0, mac.Sample(u0, x0, 0.20));
-  EXPECT_EQ(x1, mac.Sample(u0, x0, 0.95));
+  ASSERT_THROW(mac.SampleCondition(XU(x1, u0), 0.0), std::runtime_error);
+  ASSERT_THROW(mac.SampleCondition(XU(x0, u1), 0.0), std::runtime_error);
+  EXPECT_EQ(1.0, mac.SumCondition(XU(x0, u0)));
+  EXPECT_EQ(x0, mac.SampleCondition(XU(x0, u0), 0.05));
+  EXPECT_EQ(x0, mac.SampleCondition(XU(x0, u0), 0.20));
+  EXPECT_EQ(x1, mac.SampleCondition(XU(x0, u0), 0.95));
 }
 
 TEST(MarkovActionChainTest, domain_range) {

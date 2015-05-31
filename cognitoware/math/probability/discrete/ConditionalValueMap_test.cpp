@@ -107,7 +107,9 @@ TEST(ConditionalValueMapTest, SampleLikelihood) {
   xy.Set(x0, y1, 0.2);
   xy.Set(x1, y1, 0.8);
 
-  // TODO: Likelihood is not normalized. Figure out how to generate sample value.
+  EXPECT_EQ(1.1, xy.SumLikelihood(x0));
+  EXPECT_EQ(0.9, xy.SumLikelihood(x1));
+
   EXPECT_EQ(y0, xy.SampleLikelihood(x0, 0.85));
   EXPECT_EQ(y1, xy.SampleLikelihood(x0, 0.95));
   EXPECT_EQ(y0, xy.SampleLikelihood(x1, 0.05));

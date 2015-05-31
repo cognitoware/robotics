@@ -68,6 +68,8 @@ enum class DoorState {
   Open, Closed
 };
 
+typedef std::pair<DoorState, DoorAction> XU;
+
 std::ostream& operator<<(std::ostream& os, DoorState x) {
   switch (x) {
   case DoorState::Open:
@@ -129,7 +131,7 @@ public:
 
   void DoAction(std::default_random_engine* generator, DoorAction u) {
     std::uniform_real_distribution<double> random(0, 1);
-    state_ = pxux_->Sample(u, state_, random(*generator));
+    state_ = pxux_->SampleCondition(XU(state_, u), random(*generator));
   }
 
 private:

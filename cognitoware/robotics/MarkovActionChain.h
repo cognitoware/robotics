@@ -66,7 +66,35 @@ public:
     return end_value->second;
   }
 
-  X Sample(U action, X start, double p) {
+  double SumCondition(const XU& start_action) const {
+    double sum = 0.0;
+    const X& start = start_action.first;
+    const U& action = start_action.second;
+    auto start_action_map = p_.find(start);
+    if (start_action_map != p_.end()) {
+      auto action_end_map = start_action_map->second.find(action);
+      if (action_end_map != start_action_map->second.end()) {
+        for (auto& end_value : action_end_map->second) {
+          sum += end_value.second;
+        }
+      }
+    }
+    return sum;
+  }
+
+  X SampleCondition(const XU& start_action, std::default_random_engine* generator) const {
+    double sum = SumLikelihood(start_action);
+    if (sum == 0.0) {
+      throw std::runtime_error(
+          "Conditional distribution is not conditioned on start_action. Cannot sample.");
+    }
+    std::uniform_real_distribution<double> random(0, sum);
+    return SampleCondition(start_action, random(*generator));
+  }
+
+  X SampleCondition(const XU& start_action, double p) const {
+    const X& start = start_action.first;
+    const U& action = start_action.second;
     auto start_action_map = p_.find(start);
     if (start_action_map == p_.end()) {
       throw std::runtime_error(
