@@ -5,8 +5,8 @@
  *  All rights reserved.
  */
 
-#ifndef MATH_DATA_VECTORRANGE_H_
-#define MATH_DATA_VECTORRANGE_H_
+#ifndef COGNITOWARE_MATH_DATA_VECTORRANGE_H_
+#define COGNITOWARE_MATH_DATA_VECTORRANGE_H_
 
 #include <cmath>
 #include <random>
@@ -55,4 +55,4 @@ private:
 }  // namespace math
 }  // namespace cognitoware
 
-#endif /* MATH_DATA_VECTORRANGE_H_ */
+#endif /* COGNITOWARE_MATH_DATA_VECTORRANGE_H_ */

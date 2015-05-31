@@ -5,8 +5,8 @@
  *  All rights reserved.
  */
 
-#include "cognitoware/math/probability/IndependentPairDistribution.h"
 #include "cognitoware/math/probability/discrete/DistributionValueMap.h"
+#include "cognitoware/math/probability/IndependentPairDistribution.h"
 #include "gtest/gtest.h"
 
 #include <memory>

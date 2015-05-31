@@ -5,8 +5,8 @@
  *  All rights reserved.
  */
 
-#include "cognitoware/math/probability/RangedUniform.h"
 #include "cognitoware/math/data/Vector.h"
+#include "cognitoware/math/probability/RangedUniform.h"
 #include "gtest/gtest.h"
 
 #include <memory>

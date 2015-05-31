@@ -5,13 +5,12 @@
  *  All rights reserved.
  */
 
-#ifndef MATH_PROBABILITY_RANGEDUNIFORM_H_
-#define MATH_PROBABILITY_RANGEDUNIFORM_H_
-
-#include "cognitoware/math/probability/RandomDistribution.h"
+#ifndef COGNITOWARE_MATH_PROBABILITY_RANGEDUNIFORM_H_
+#define COGNITOWARE_MATH_PROBABILITY_RANGEDUNIFORM_H_
 
 #include "cognitoware/math/data/Vector.h"
 #include "cognitoware/math/data/VectorRange.h"
+#include "cognitoware/math/probability/RandomDistribution.h"
 
 #include <type_traits>
 #include <utility>
@@ -48,4 +47,4 @@ private:
 }  // namespace math
 }  // namespace cognitoware
 
-#endif /* MATH_PROBABILITY_RANGEDUNIFORM_H_ */
+#endif /* COGNITOWARE_MATH_PROBABILITY_RANGEDUNIFORM_H_ */

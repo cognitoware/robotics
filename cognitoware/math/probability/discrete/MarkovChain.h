@@ -5,13 +5,11 @@
  *  All rights reserved.
  */
 
-#ifndef MATH_PROBABILITY_DISCRETE_MARKOVCHAIN_H_
-#define MATH_PROBABILITY_DISCRETE_MARKOVCHAIN_H_
+#ifndef COGNITOWARE_MATH_PROBABILITY_DISCRETE_MARKOVCHAIN_H_
+#define COGNITOWARE_MATH_PROBABILITY_DISCRETE_MARKOVCHAIN_H_
 
 #include "cognitoware/math/probability/discrete/DiscreteConditional.h"
-#include "cognitoware/math/probability/discrete/DiscreteDistribution.h"
 #include "cognitoware/math/probability/discrete/DistributionValueMap.h"
-#include "cognitoware/math/probability/RandomConditional.h"
 #include "cognitoware/math/probability/RandomDistribution.h"
 
 #include <memory>
@@ -45,7 +43,7 @@ public:
     range_[end] = end;
   }
 
-  X DoTransition(X start, std::default_random_engine* generator) {
+  X DoTransition(const X& start, std::default_random_engine* generator) {
     std::uniform_real_distribution<double> dist(0, 1);
     double select = dist(*generator);
     X result = start;
@@ -62,7 +60,7 @@ public:
     return result;
   }
 
-  std::shared_ptr<MarkovChain> Reverse() {
+  std::shared_ptr<MarkovChain> Reverse() const {
     auto result = std::make_shared<MarkovChain<X>>();
     for (X today : range()) {
       auto x = this->BayesianInference(today,
@@ -118,7 +116,7 @@ public:
   }
 
   std::shared_ptr<DistributionValueMap<X>> Marginalize(
-      const RandomDistribution<X>& start) {
+      const RandomDistribution<X>& start) const {
     auto result = std::make_shared<DistributionValueMap<X>>();
     for (auto& xfr_map : transitions_) {
       double pstart = start.ProbabilityOf(xfr_map.first);
@@ -150,4 +148,4 @@ private:
 }  // namespace math
 }  // namespace cognitoware
 
-#endif /* MATH_PROBABILITY_DISCRETE_MARKOVCHAIN_H_ */
+#endif /* COGNITOWARE_MATH_PROBABILITY_DISCRETE_MARKOVCHAIN_H_ */

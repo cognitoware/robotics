@@ -4,16 +4,13 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
-../cognitoware/robotics/MarkovActionChain_test.cpp \
-../cognitoware/robotics/ObservationGenerator_test.cpp 
+../cognitoware/robotics/MarkovActionChain_test.cpp 
 
 OBJS += \
-./cognitoware/robotics/MarkovActionChain_test.o \
-./cognitoware/robotics/ObservationGenerator_test.o 
+./cognitoware/robotics/MarkovActionChain_test.o 
 
 CPP_DEPS += \
-./cognitoware/robotics/MarkovActionChain_test.d \
-./cognitoware/robotics/ObservationGenerator_test.d 
+./cognitoware/robotics/MarkovActionChain_test.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

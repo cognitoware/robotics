@@ -5,7 +5,6 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
 ../cognitoware/math/probability/discrete/ConditionalValueMap_test.cpp \
-../cognitoware/math/probability/discrete/DiscreteConditional_test.cpp \
 ../cognitoware/math/probability/discrete/DiscreteDistribution_test.cpp \
 ../cognitoware/math/probability/discrete/DistributionCounter_test.cpp \
 ../cognitoware/math/probability/discrete/DistributionValueMap_test.cpp \
@@ -13,7 +12,6 @@ CPP_SRCS += \
 
 OBJS += \
 ./cognitoware/math/probability/discrete/ConditionalValueMap_test.o \
-./cognitoware/math/probability/discrete/DiscreteConditional_test.o \
 ./cognitoware/math/probability/discrete/DiscreteDistribution_test.o \
 ./cognitoware/math/probability/discrete/DistributionCounter_test.o \
 ./cognitoware/math/probability/discrete/DistributionValueMap_test.o \
@@ -21,7 +19,6 @@ OBJS += \
 
 CPP_DEPS += \
 ./cognitoware/math/probability/discrete/ConditionalValueMap_test.d \
-./cognitoware/math/probability/discrete/DiscreteConditional_test.d \
 ./cognitoware/math/probability/discrete/DiscreteDistribution_test.d \
 ./cognitoware/math/probability/discrete/DistributionCounter_test.d \
 ./cognitoware/math/probability/discrete/DistributionValueMap_test.d \

@@ -5,8 +5,8 @@
  *  All rights reserved.
  */
 
-#ifndef MATH_PROBABILITY_BAYESDISTRIBUTION_H_
-#define MATH_PROBABILITY_BAYESDISTRIBUTION_H_
+#ifndef COGNITOWARE_MATH_PROBABILITY_BAYESDISTRIBUTION_H_
+#define COGNITOWARE_MATH_PROBABILITY_BAYESDISTRIBUTION_H_
 
 #include "cognitoware/math/probability/RandomConditional.h"
 #include "cognitoware/math/probability/RandomDistribution.h"
@@ -86,4 +86,4 @@ private:
 }  // namespace math
 }  // namespace cognitoware
 
-#endif /* MATH_PROBABILITY_BAYESDISTRIBUTION_H_ */
+#endif /* COGNITOWARE_MATH_PROBABILITY_BAYESDISTRIBUTION_H_ */

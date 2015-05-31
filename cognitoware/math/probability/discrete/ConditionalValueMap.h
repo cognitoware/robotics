@@ -5,16 +5,16 @@
  *  All rights reserved.
  */
 
-#ifndef MATH_PROBABILITY_DISCRETE_CONDITIONALVALUEMAP_H_
-#define MATH_PROBABILITY_DISCRETE_CONDITIONALVALUEMAP_H_
+#ifndef COGNITOWARE_MATH_PROBABILITY_DISCRETE_CONDITIONALVALUEMAP_H_
+#define COGNITOWARE_MATH_PROBABILITY_DISCRETE_CONDITIONALVALUEMAP_H_
 
 #include "cognitoware/math/probability/discrete/DiscreteConditional.h"
 #include "cognitoware/math/probability/discrete/DistributionValueMap.h"
 
 #include <map>
-#include <vector>
 #include <memory>
 #include <random>
+#include <vector>
 
 namespace cognitoware {
 namespace math {
@@ -90,7 +90,6 @@ public:
   double SumLikelihood(const X& x) const {
     double sum = 0.0;
     for (auto& y_map : map_) {
-      Y y = y_map.first;
       auto x_value = y_map.second.find(x);
       if (x_value != y_map.second.end()) {
         sum += x_value->second;
@@ -153,4 +152,4 @@ private:
 }  // namespace math
 }  // namespace cognitoware
 
-#endif /* MATH_PROBABILITY_DISCRETE_CONDITIONALVALUEMAP_H_ */
+#endif /* COGNITOWARE_MATH_PROBABILITY_DISCRETE_CONDITIONALVALUEMAP_H_ */

@@ -5,11 +5,10 @@
  *  All rights reserved.
  */
 
-#ifndef MATH_PROBABILITY_DISCRETE_DISTRIBUTIONVALUEMAP_H_
-#define MATH_PROBABILITY_DISCRETE_DISTRIBUTIONVALUEMAP_H_
+#ifndef COGNITOWARE_MATH_PROBABILITY_DISCRETE_DISTRIBUTIONVALUEMAP_H_
+#define COGNITOWARE_MATH_PROBABILITY_DISCRETE_DISTRIBUTIONVALUEMAP_H_
 
 #include "cognitoware/math/probability/discrete/DiscreteDistribution.h"
-#include "cognitoware/math/probability/RandomDistribution.h"
 
 #include <cmath>
 #include <map>
@@ -107,4 +106,4 @@ private:
 }  // namespace math
 }  // namespace cognitoware
 
-#endif /* MATH_PROBABILITY_DISCRETE_DISTRIBUTIONVALUEMAP_H_ */
+#endif /* COGNITOWARE_MATH_PROBABILITY_DISCRETE_DISTRIBUTIONVALUEMAP_H_ */

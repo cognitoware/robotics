@@ -5,8 +5,8 @@
  *  All rights reserved.
  */
 
-#include "cognitoware/math/probability/RandomDistribution.h"
 #include "cognitoware/math/data/Vector.h"
+#include "cognitoware/math/probability/RandomDistribution.h"
 #include "gtest/gtest.h"
 
 using cognitoware::math::data::Vector;

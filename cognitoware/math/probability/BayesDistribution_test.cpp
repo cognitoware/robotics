@@ -5,12 +5,11 @@
  *  All rights reserved.
  */
 
-#include "cognitoware/math/probability/RandomConditional.h"
-#include "cognitoware/math/probability/RandomDistribution.h"
-#include "cognitoware/math/probability/BayesDistribution.h"
-#include "cognitoware/math/probability/RangedUniform.h"
-#include "cognitoware/math/probability/discrete/DistributionValueMap.h"
 #include "cognitoware/math/data/Vector.h"
+#include "cognitoware/math/probability/BayesDistribution.h"
+#include "cognitoware/math/probability/discrete/DistributionValueMap.h"
+#include "cognitoware/math/probability/RandomConditional.h"
+#include "cognitoware/math/probability/RangedUniform.h"
 #include "gtest/gtest.h"
 
 #include <memory>

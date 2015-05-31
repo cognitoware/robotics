@@ -5,12 +5,11 @@
  *  All rights reserved.
  */
 
-#ifndef ROBOTICS_MARKOVACTIONCHAIN_H_
-#define ROBOTICS_MARKOVACTIONCHAIN_H_
+#ifndef COGNITOWARE_ROBOTICS_MARKOVACTIONCHAIN_H_
+#define COGNITOWARE_ROBOTICS_MARKOVACTIONCHAIN_H_
 
 #include "cognitoware/math/probability/discrete/DiscreteConditional.h"
 #include "cognitoware/math/probability/discrete/DistributionValueMap.h"
-#include "cognitoware/math/probability/RandomConditional.h"
 
 #include <map>
 
@@ -166,4 +165,4 @@ private:
   // namespace robotics
 } // namespace cognitoware
 
-#endif /* ROBOTICS_MARKOVACTIONCHAIN_H_ */
+#endif /* COGNITOWARE_ROBOTICS_MARKOVACTIONCHAIN_H_ */

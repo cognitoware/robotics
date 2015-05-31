@@ -12,7 +12,6 @@
 #include "cognitoware/math/probability/BayesDistribution.h"
 #include "cognitoware/math/probability/ConditionalMap.h"
 #include "cognitoware/math/probability/discrete/DistributionValueMap.h"
-#include "cognitoware/math/probability/ProbabilityUtil.h"
 #include "cognitoware/math/probability/RandomDistribution.h"
 #include "cognitoware/math/probability/RangedUniform.h"
 #include "gtest/gtest.h"

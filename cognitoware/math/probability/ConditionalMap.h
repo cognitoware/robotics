@@ -5,17 +5,17 @@
  *  All rights reserved.
  */
 
-#ifndef COGNITOWARE_COGNITOWARE_MATH_PROBABILITY_CONDITIONALMAP_H_
-#define COGNITOWARE_COGNITOWARE_MATH_PROBABILITY_CONDITIONALMAP_H_
+#ifndef COGNITOWARE_MATH_PROBABILITY_CONDITIONALMAP_H_
+#define COGNITOWARE_MATH_PROBABILITY_CONDITIONALMAP_H_
 
 #include "cognitoware/math/probability/RandomConditional.h"
 #include "cognitoware/math/probability/RandomDistribution.h"
 
 #include <map>
+#include <map>
 #include <memory>
 #include <type_traits>
 #include <utility>
-#include <map>
 
 namespace cognitoware {
 namespace math {
@@ -51,4 +51,4 @@ private:
 } // namespace math
 } // namespace cognitoware
 
-#endif /* COGNITOWARE_COGNITOWARE_MATH_PROBABILITY_CONDITIONALMAP_H_ */
+#endif /* COGNITOWARE_MATH_PROBABILITY_CONDITIONALMAP_H_ */

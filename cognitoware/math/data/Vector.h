@@ -8,11 +8,11 @@
 #ifndef COGNITOWARE_MATH_DATA_VECTOR_H_
 #define COGNITOWARE_MATH_DATA_VECTOR_H_
 
+#include <sstream>
+#include <string>
 #include <type_traits>
 #include <utility>
 #include <vector>
-#include <sstream>
-#include <string>
 
 namespace cognitoware {
 namespace math {

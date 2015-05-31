@@ -5,8 +5,8 @@
  *  All rights reserved.
  */
 
-#ifndef WEATHER_H_
-#define WEATHER_H_
+#ifndef EXAMPLES_WEATHER_H_
+#define EXAMPLES_WEATHER_H_
 
 #include "cognitoware/math/probability/RandomDistribution.h"
 #include "cognitoware/math/probability/discrete/MarkovChain.h"
@@ -28,4 +28,4 @@ std::shared_ptr<MarkovChain<Weather>> CreateWeatherMachine();
 
 }  // namespace examples
 
-#endif /* WEATHER_H_ */
+#endif /* EXAMPLES_WEATHER_H_ */

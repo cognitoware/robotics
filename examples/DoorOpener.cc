@@ -124,7 +124,7 @@ public:
   }
 
   void CreateObservation(std::default_random_engine* generator,
-                         DoorObservation* result_out) override {
+                         DoorObservation* result_out) const override {
     std::uniform_real_distribution<double> random(0, 1);
     *result_out = pxz_->SampleLikelihood(state_, random(*generator));
   }
