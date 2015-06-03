@@ -26,7 +26,7 @@ public:
   }
 
   double area() const {
-    X dx = max_ - min_;
+    Vector dx = max_ - min_;
     double result = 1.0;
     for (unsigned int i = 0; i < dx.order(); i++)
       result *= dx[i];

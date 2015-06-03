@@ -33,21 +33,7 @@ using ::cognitoware::math::probability::discrete::DistributionValueMap;
 namespace examples {
 
 // This single-element vector represents a value read from a sensor.
-class SensorReading : public Vector<SensorReading, 1> {
-public:
-  SensorReading() :
-      Vector({0.0}) {
-  }
-  SensorReading(double d) :
-      Vector({d}) {
-  }
-  SensorReading(const SensorReading& that) :
-      Vector<SensorReading, 1>(that) {
-  }
-  SensorReading(SensorReading&& that) :
-      Vector<SensorReading, 1>(that) {
-  }
-};
+DEFINE_VECTOR1(SensorReading);
 
 // The possible operational states of a sensor.
 enum class SensorState {

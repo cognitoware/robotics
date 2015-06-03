@@ -24,7 +24,7 @@ class RangedUniform : public RandomDistribution<X> {
 public:
   RangedUniform(X min, X max) :
       range_(std::move(min), std::move(max)) {
-    static_assert(std::is_base_of<data::Vector<X, X::Order>, X>::value, "X must derive from Vector");
+    static_assert(std::is_base_of<data::Vector, X>::value, "X must derive from Vector");
   }
 
   ~RangedUniform() override {

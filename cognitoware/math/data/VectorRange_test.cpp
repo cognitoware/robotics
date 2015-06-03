@@ -13,9 +13,9 @@ namespace cognitoware {
 namespace math {
 namespace data {
 
-class VT2 : public Vector<VT2, 2> {
+class VT2 : public Vector {
 public:
-  VT2() : Vector() {}
+  VT2() : Vector(1) {}
   VT2(const VT2& v) : Vector(v) {}
   VT2(const VT2&& v) : Vector(v) {}
   VT2(std::vector<double> a) : Vector(std::move(a)) {}

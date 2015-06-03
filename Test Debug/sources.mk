@@ -24,8 +24,10 @@ C_DEPS :=
 # Every subdirectory with source files must be described here
 SUBDIRS := \
 examples \
+cognitoware/robotics/state_estimation \
 cognitoware/robotics \
 cognitoware/math/probability/discrete \
+cognitoware/math/probability/continuous \
 cognitoware/math/probability \
 cognitoware/math/data \
 Examples\ Debug/examples \
