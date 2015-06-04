@@ -11,6 +11,7 @@ RM := rm -rf
 -include examples/subdir.mk
 -include cognitoware/robotics/state_estimation/subdir.mk
 -include cognitoware/robotics/subdir.mk
+-include cognitoware/math/util/subdir.mk
 -include cognitoware/math/probability/discrete/subdir.mk
 -include cognitoware/math/probability/continuous/subdir.mk
 -include cognitoware/math/probability/subdir.mk

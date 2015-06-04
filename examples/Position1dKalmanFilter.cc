@@ -71,7 +71,7 @@ std::shared_ptr<ActionModel> CreateActionModel() {
   // position = 0
   // velocity = acceleration
   action_model->c() = Vector(ma({0.0, 0.0}));
-  action_model->r() = Matrix(2, 2, ma({0.0, 0.0, 0.0, 0.0}));
+  action_model->r() = Matrix(2, 2, ma({0.0, 0.0, 0.0, 1.0}));
   return action_model;
 }
 
@@ -80,8 +80,8 @@ TEST(Position1dKalmanFilter, main) {
   std::vector<std::shared_ptr<GaussianMoment<State>>> beliefs(steps);
 
   GaussianMoment<Acceleration> action(
-      Acceleration(1.0),
-      Matrix(1, 1, ma( {0.2})));
+      Acceleration(0.0),
+      Matrix(1, 1, ma( {1.0})));
 
   State state;  // position and velocity
   auto belief = std::make_shared<GaussianMoment<State>>(
@@ -91,9 +91,11 @@ TEST(Position1dKalmanFilter, main) {
 
   auto filter = std::make_shared<KalmanFilter<State, Acceleration, Vector>>();
 
+  std::default_random_engine generator(0);
+
   beliefs[0] = belief;
   for( unsigned int i = 1; i < beliefs.size(); i++ ) {
-    belief = filter->Marginalize(*action_model, action, *belief);
+    belief = filter->Marginalize(*action_model, action.Sample(&generator), *belief);
     beliefs[i] = belief;
   }
 

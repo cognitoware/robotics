@@ -26,6 +26,7 @@ SUBDIRS := \
 examples \
 cognitoware/robotics/state_estimation \
 cognitoware/robotics \
+cognitoware/math/util \
 cognitoware/math/probability/discrete \
 cognitoware/math/probability/continuous \
 cognitoware/math/probability \

@@ -164,7 +164,9 @@ public:
     return a_[i];
   }
 
+  Vector AliasVector() const { return Vector(a_); }
 protected:
+
 private:
   std::vector<double> a_;
 };

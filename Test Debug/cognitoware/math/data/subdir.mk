@@ -6,18 +6,24 @@
 CPP_SRCS += \
 ../cognitoware/math/data/MatrixVectorOperators.cpp \
 ../cognitoware/math/data/Matrix_test.cpp \
+../cognitoware/math/data/PiecewiseLinearFunction.cpp \
+../cognitoware/math/data/PiecewiseLinearFunction_test.cpp \
 ../cognitoware/math/data/VectorRange_test.cpp \
 ../cognitoware/math/data/Vector_test.cpp 
 
 OBJS += \
 ./cognitoware/math/data/MatrixVectorOperators.o \
 ./cognitoware/math/data/Matrix_test.o \
+./cognitoware/math/data/PiecewiseLinearFunction.o \
+./cognitoware/math/data/PiecewiseLinearFunction_test.o \
 ./cognitoware/math/data/VectorRange_test.o \
 ./cognitoware/math/data/Vector_test.o 
 
 CPP_DEPS += \
 ./cognitoware/math/data/MatrixVectorOperators.d \
 ./cognitoware/math/data/Matrix_test.d \
+./cognitoware/math/data/PiecewiseLinearFunction.d \
+./cognitoware/math/data/PiecewiseLinearFunction_test.d \
 ./cognitoware/math/data/VectorRange_test.d \
 ./cognitoware/math/data/Vector_test.d 
 

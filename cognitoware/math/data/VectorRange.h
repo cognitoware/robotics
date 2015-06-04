@@ -41,7 +41,7 @@ public:
     X result;
     for (unsigned int i = 0; i < result.order(); i++) {
       std::uniform_real_distribution<double> random(min_[i], max_[i]);
-      result.at(i) = random(*generator);
+      result[i] = random(*generator);
     }
     return result;
   }

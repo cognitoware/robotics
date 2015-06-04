@@ -16,6 +16,9 @@ namespace math {
 namespace data {
 
 Vector operator*(const Matrix& m, const Vector& v);
+Vector operator*(const Vector& v, const Matrix& m);
+Matrix operator*(double scalar, const Matrix& m);
+double operator*(const Vector& v1, const Vector& v2);
 
 }  // namespace data
 }  // namespace math
