@@ -11,7 +11,6 @@
 #include "cognitoware/math/data/Matrix.h"
 #include "cognitoware/math/data/MatrixVectorOperators.h"
 #include "cognitoware/math/data/Vector.h"
-#include "cognitoware/math/util/GaussianSampler.h"
 #include "cognitoware/math/probability/RandomDistribution.h"
 
 #include <math.h>
@@ -79,13 +78,13 @@ public:
     return Fn(x.AliasVector(), mean().AliasVector(), covariance(),
         InverseCovariance());
   }
+
   X Sample(std::default_random_engine* generator) const override {
-    std::uniform_real_distribution<double> random(0, 1);
+    std::normal_distribution<double> n01(0, 1);
     data::Vector sample(order());
-    auto& gaussian_sampler = util::GaussianSampler::Singleton();
     for (std::size_t i = 0; i < sample.order(); i++) {
       // need a N(0,1) here
-      sample[i] = gaussian_sampler.SampleN01(random(*generator));
+      sample[i] = n01(*generator);
     }
     X result;
     result.Set(mean() + SqrtCovariance() * sample);
