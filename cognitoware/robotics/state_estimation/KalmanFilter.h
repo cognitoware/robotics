@@ -11,6 +11,7 @@
 #include "cognitoware/math/data/Matrix.h"
 #include "cognitoware/math/probability/continuous/GaussianMoment.h"
 #include "cognitoware/robotics/state_estimation/KalmanActionModel.h"
+#include "cognitoware/robotics/state_estimation/KalmanSensorModel.h"
 
 #include <memory>
 #include <stdexcept>
@@ -25,6 +26,37 @@ public:
   KalmanFilter() {}
 
   virtual ~KalmanFilter() {}
+
+  std::shared_ptr<math::probability::continuous::GaussianMoment<X>>
+  BayesianInference(
+      const KalmanSensorModel<Z, X>& model,
+      const Z& data,
+      const math::probability::continuous::GaussianMoment<X>& belief) const {
+    using math::data::Matrix;
+    using math::probability::continuous::GaussianMoment;
+    // Table 3.1 p42
+    auto& z = data;
+    auto& mu0 = belief.mean();
+    auto& sigma0 = belief.covariance();
+
+    auto z_est = model.GetMean(mu0);
+    auto Q = model.GetError(z);
+
+    Matrix C = model.c();
+    Matrix K;
+    {
+      Matrix sc = sigma0 * C.Transpose();
+      K = sc * ((C * sc) + Q).Inverse();
+    }
+
+    X mu1;
+    mu1.Set(mu0 + K * (z - z_est));
+
+    Matrix I = Matrix::Identity(sigma0.rows());
+    Matrix sigma1 = (I - K * C) * sigma0;
+
+    return std::make_shared<GaussianMoment<X>>(mu1, sigma1);
+  }
 
   std::shared_ptr<math::probability::continuous::GaussianMoment<X>>
   Marginalize(const KalmanActionModel<U, X>& model,

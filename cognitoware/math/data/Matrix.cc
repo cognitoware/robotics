@@ -24,7 +24,7 @@ Matrix::Matrix(std::size_t rows, std::size_t cols, std::vector<double> values) :
 }
 
 Matrix::Matrix(std::size_t rows, std::size_t cols, std::vector<double> values,
-       bool row_based) :
+               bool row_based) :
     rows_(rows), cols_(cols), m_(values), row_based_(row_based) {
 }
 
@@ -77,7 +77,7 @@ Matrix& Matrix::operator+=(const Matrix& that) {
     throw std::runtime_error("Matrix sizes not compatible.");
   }
 
-  if (row_based_ == row_based_) {
+  if (row_based_ == that.row_based_) {
     for (std::size_t i = 0; i < m_.size(); i++) {
       m_[i] += that.m_[i];
     }
@@ -92,6 +92,28 @@ Matrix& Matrix::operator+=(const Matrix& that) {
   }
 
   return *this;
+}
+
+Matrix Matrix::operator+(const Matrix& that) const {
+  if (rows_ != that.rows_ || cols_ != that.cols_ || row_based_ != that.row_based_) {
+    throw std::runtime_error("Matrix sizes not compatible.");
+  }
+  std::vector<double> m(m_.size());
+  for (std::size_t i = 0; i < m_.size(); i++) {
+    m[i] = m_[i] + that.m_[i];
+  }
+  return Matrix(rows_, cols_, m, row_based_);
+}
+
+Matrix Matrix::operator-(const Matrix& that) const {
+  if (rows_ != that.rows_ || cols_ != that.cols_ || row_based_ != that.row_based_) {
+    throw std::runtime_error("Matrix sizes not compatible.");
+  }
+  std::vector<double> m(m_.size());
+  for (std::size_t i = 0; i < m_.size(); i++) {
+    m[i] = m_[i] - that.m_[i];
+  }
+  return Matrix(rows_, cols_, m, row_based_);
 }
 
 Matrix Matrix::operator*(const Matrix& that) const {
@@ -212,7 +234,7 @@ void Matrix::CombineRow(std::size_t srcRow, std::size_t dstRow, double k) {
 }
 
 Matrix Matrix::LUDecompositionByGE(int* p_swap_count,
-                           std::vector<std::size_t>* p_pivot) const {
+                                   std::vector<std::size_t>* p_pivot) const {
   if (rows_ != cols_) {
     throw std::runtime_error("Matrix must be square.");
   }
@@ -266,7 +288,7 @@ void Matrix::InitPivots(std::size_t n, std::vector<std::size_t>* p_pivot) {
 }
 
 double Matrix::PartialPivot(std::vector<std::size_t>* p_pivot, std::size_t k,
-                    int* p_swap_count) const {
+                            int* p_swap_count) const {
   std::vector<std::size_t>& pivot = *p_pivot;
   int& swap_count = *p_swap_count;
   double maxValue = fabs(at(pivot[k], k));

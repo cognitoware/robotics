@@ -18,6 +18,13 @@ namespace data {
 
 class Matrix {
 public:
+  static Matrix Identity(size_t order) {
+    std::vector<double> a(order * order);
+    for (std::size_t i = 0; i < a.size(); i += order + 1) {
+      a[i] = 1.0;
+    }
+    return Matrix(order, order, a);
+  }
   Matrix();
   Matrix(std::size_t rows, std::size_t cols);
   Matrix(std::size_t rows, std::size_t cols, std::vector<double> values);
@@ -34,6 +41,8 @@ public:
   double at(std::size_t row, std::size_t col) const;
   Matrix& operator=(Matrix&& that);
   Matrix& operator+=(const Matrix& that);
+  Matrix operator+(const Matrix& that) const;
+  Matrix operator-(const Matrix& that) const;
   Matrix operator*(const Matrix& that) const;
   Matrix Transpose() const;
   Matrix Inverse() const;

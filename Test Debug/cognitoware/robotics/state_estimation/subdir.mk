@@ -6,20 +6,29 @@
 CPP_SRCS += \
 ../cognitoware/robotics/state_estimation/ActionModel_test.cpp \
 ../cognitoware/robotics/state_estimation/GaussianActionModel_test.cpp \
+../cognitoware/robotics/state_estimation/GaussianSensorModel_test.cpp \
 ../cognitoware/robotics/state_estimation/KalmanActionModel_test.cpp \
-../cognitoware/robotics/state_estimation/KalmanFilter_test.cpp 
+../cognitoware/robotics/state_estimation/KalmanFilter_test.cpp \
+../cognitoware/robotics/state_estimation/KalmanSensorModel_test.cpp \
+../cognitoware/robotics/state_estimation/SensorModel_test.cpp 
 
 OBJS += \
 ./cognitoware/robotics/state_estimation/ActionModel_test.o \
 ./cognitoware/robotics/state_estimation/GaussianActionModel_test.o \
+./cognitoware/robotics/state_estimation/GaussianSensorModel_test.o \
 ./cognitoware/robotics/state_estimation/KalmanActionModel_test.o \
-./cognitoware/robotics/state_estimation/KalmanFilter_test.o 
+./cognitoware/robotics/state_estimation/KalmanFilter_test.o \
+./cognitoware/robotics/state_estimation/KalmanSensorModel_test.o \
+./cognitoware/robotics/state_estimation/SensorModel_test.o 
 
 CPP_DEPS += \
 ./cognitoware/robotics/state_estimation/ActionModel_test.d \
 ./cognitoware/robotics/state_estimation/GaussianActionModel_test.d \
+./cognitoware/robotics/state_estimation/GaussianSensorModel_test.d \
 ./cognitoware/robotics/state_estimation/KalmanActionModel_test.d \
-./cognitoware/robotics/state_estimation/KalmanFilter_test.d 
+./cognitoware/robotics/state_estimation/KalmanFilter_test.d \
+./cognitoware/robotics/state_estimation/KalmanSensorModel_test.d \
+./cognitoware/robotics/state_estimation/SensorModel_test.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
