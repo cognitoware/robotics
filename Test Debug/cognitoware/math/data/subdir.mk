@@ -9,6 +9,7 @@ CC_SRCS += \
 CPP_SRCS += \
 ../cognitoware/math/data/MatrixVectorOperators.cpp \
 ../cognitoware/math/data/Matrix_test.cpp \
+../cognitoware/math/data/Vector.cpp \
 ../cognitoware/math/data/VectorRange_test.cpp \
 ../cognitoware/math/data/Vector_test.cpp 
 
@@ -19,12 +20,14 @@ OBJS += \
 ./cognitoware/math/data/Matrix.o \
 ./cognitoware/math/data/MatrixVectorOperators.o \
 ./cognitoware/math/data/Matrix_test.o \
+./cognitoware/math/data/Vector.o \
 ./cognitoware/math/data/VectorRange_test.o \
 ./cognitoware/math/data/Vector_test.o 
 
 CPP_DEPS += \
 ./cognitoware/math/data/MatrixVectorOperators.d \
 ./cognitoware/math/data/Matrix_test.d \
+./cognitoware/math/data/Vector.d \
 ./cognitoware/math/data/VectorRange_test.d \
 ./cognitoware/math/data/Vector_test.d 
 
