@@ -82,7 +82,7 @@ public:
   }
 
   std::shared_ptr<DistributionValueMap<Y>> BayesianInference(
-      X data, const DistributionValueMap<Y>& prior) {
+      X data, const DistributionValueMap<Y>& prior) const {
     auto likelihood = LikelihoodOf(data);
     return likelihood->Product(prior);
   }

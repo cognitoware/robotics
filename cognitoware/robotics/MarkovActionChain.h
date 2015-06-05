@@ -28,22 +28,22 @@ public:
   ~MarkovActionChain() override {
   }
 
-  void Set(X end, U action, X start, double p) {
-    auto start_action_map = p_.find(start);
-    if (start_action_map == p_.end()) {
-      start_action_map =
-          p_.emplace(start, std::map<U, std::map<X, double>>()).first;
+  std::vector<X> domain() const override {
+    std::vector<X> result;
+    result.reserve(x_.size());
+    for (auto& x_x : x_) {
+      result.push_back(x_x.first);
     }
-    auto action_end_map = start_action_map->second.find(action);
-    if (action_end_map == start_action_map->second.end()) {
-      auto emplace_result = start_action_map->second.emplace(action,
-          std::map<X, double>());
-      action_end_map = emplace_result.first;
+    return result;
+  }
+
+  std::vector<XU> range() const override {
+    std::vector<XU> result;
+    result.reserve(xu_.size());
+    for (auto& xu_xu : xu_) {
+      result.push_back(xu_xu.first);
     }
-    action_end_map->second[end] = p;
-    x_[end] = end;
-    u_[action] = action;
-    xu_[XU(start, action)] = XU(start, action);
+    return result;
   }
 
   double ConditionalProbabilityOf(const X& x, const XU& xu) const
@@ -63,6 +63,24 @@ public:
       return 0.0;
     }
     return end_value->second;
+  }
+
+  void Set(X end, U action, X start, double p) {
+    auto start_action_map = p_.find(start);
+    if (start_action_map == p_.end()) {
+      start_action_map =
+          p_.emplace(start, std::map<U, std::map<X, double>>()).first;
+    }
+    auto action_end_map = start_action_map->second.find(action);
+    if (action_end_map == start_action_map->second.end()) {
+      auto emplace_result = start_action_map->second.emplace(action,
+          std::map<X, double>());
+      action_end_map = emplace_result.first;
+    }
+    action_end_map->second[end] = p;
+    x_[end] = end;
+    u_[action] = action;
+    xu_[XU(start, action)] = XU(start, action);
   }
 
   double SumCondition(const XU& start_action) const {
@@ -112,24 +130,6 @@ public:
     }
     throw std::runtime_error(
         "End state for specified <start, action> is badly specified. Cannot sample.");
-  }
-
-  std::vector<X> domain() const override {
-    std::vector<X> result;
-    result.reserve(x_.size());
-    for (auto& x_x : x_) {
-      result.push_back(x_x.first);
-    }
-    return result;
-  }
-
-  std::vector<XU> range() const override {
-    std::vector<XU> result;
-    result.reserve(xu_.size());
-    for (auto& xu_xu : xu_) {
-      result.push_back(xu_xu.first);
-    }
-    return result;
   }
 
   std::shared_ptr<math::probability::discrete::DistributionValueMap<X>> Marginalize(

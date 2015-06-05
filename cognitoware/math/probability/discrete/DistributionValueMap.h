@@ -39,7 +39,7 @@ public:
     Normalize();
   }
 
-  virtual ~DistributionValueMap() {
+  ~DistributionValueMap() override {
   }
 
   double ProbabilityOf(const X& x) const override {

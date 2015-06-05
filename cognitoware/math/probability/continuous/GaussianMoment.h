@@ -50,30 +50,6 @@ public:
   virtual ~GaussianMoment() {
   }
 
-  const X& mean() const {
-    return mean_;
-  }
-  const math::data::Matrix& covariance() const {
-    return covariance_;
-  }
-  const math::data::Matrix& InverseCovariance() const {
-    if (!is_valid_inverse_) {
-      inverse_covariance_ = covariance_.Inverse();
-      is_valid_inverse_ = true;
-    }
-    return inverse_covariance_;
-  }
-  const math::data::Matrix& SqrtCovariance() const {
-    if (!is_valid_sqrt_) {
-      srqt_covariance_ = covariance().Sqrt();
-      is_valid_sqrt_ = true;
-    }
-    return srqt_covariance_;
-  }
-  std::size_t order() const {
-    return mean().order();
-  }
-
   double ProbabilityOf(const X& x) const override {
     return Fn(x.AliasVector(), mean().AliasVector(), covariance(),
         InverseCovariance());
@@ -89,6 +65,34 @@ public:
     X result;
     result.Set(mean() + SqrtCovariance() * sample);
     return result;
+  }
+
+  std::size_t order() const {
+    return mean().order();
+  }
+
+  const X& mean() const {
+    return mean_;
+  }
+
+  const math::data::Matrix& covariance() const {
+    return covariance_;
+  }
+
+  const math::data::Matrix& InverseCovariance() const {
+    if (!is_valid_inverse_) {
+      inverse_covariance_ = covariance_.Inverse();
+      is_valid_inverse_ = true;
+    }
+    return inverse_covariance_;
+  }
+
+  const math::data::Matrix& SqrtCovariance() const {
+    if (!is_valid_sqrt_) {
+      srqt_covariance_ = covariance().Sqrt();
+      is_valid_sqrt_ = true;
+    }
+    return srqt_covariance_;
   }
 
 private:

@@ -34,6 +34,37 @@ public:
   ~MarkovChain() override {
   }
 
+  std::vector<X> domain() const override {
+    std::vector<X> result;
+    result.reserve(range_.size());
+    for (auto& pair : range_) {
+      result.push_back(pair.first);
+    }
+    return result;
+  }
+
+  std::vector<X> range() const override {
+    std::vector<X> result;
+    result.reserve(transitions_.size());
+    for (auto& pair : transitions_) {
+      result.push_back(pair.first);
+    }
+    return result;
+  }
+
+  double ConditionalProbabilityOf(const X& end, const X& start) const override {
+    auto end_map = transitions_.find(start);
+    if (end_map == transitions_.end()) {
+      // TODO: Does zero make sense here? Does an unknown imply zero chance?
+      return 0.0;
+    }
+    auto result = end_map->second.find(end);
+    if (result == end_map->second.end()) {
+      return 0.0;
+    }
+    return result->second;
+  }
+
   void Set(const X& end, const X& start, double p) {
     auto end_map = transitions_.find(start);
     if (end_map == transitions_.end()) {
@@ -71,37 +102,6 @@ public:
       }
     }
     return result;
-  }
-
-  std::vector<X> domain() const override {
-    std::vector<X> result;
-    result.reserve(range_.size());
-    for (auto& pair : range_) {
-      result.push_back(pair.first);
-    }
-    return result;
-  }
-
-  std::vector<X> range() const override {
-    std::vector<X> result;
-    result.reserve(transitions_.size());
-    for (auto& pair : transitions_) {
-      result.push_back(pair.first);
-    }
-    return result;
-  }
-
-  double ConditionalProbabilityOf(const X& end, const X& start) const override {
-    auto end_map = transitions_.find(start);
-    if (end_map == transitions_.end()) {
-      // TODO: Does zero make sense here? Does an unknown imply zero chance?
-      return 0.0;
-    }
-    auto result = end_map->second.find(end);
-    if (result == end_map->second.end()) {
-      return 0.0;
-    }
-    return result->second;
   }
 
   std::shared_ptr<DistributionValueMap<X>> LikelihoodOf(const X& data) const {
