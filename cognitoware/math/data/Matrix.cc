@@ -364,6 +364,22 @@ Matrix Matrix::CholeskyDecomposition() const {
   return Matrix(n, n, a);
 }
 
+std::ostream& operator<<(std::ostream& os, const Matrix& m) {
+  os << m.rows() << "x" << m.cols() << ":{";
+  for (std::size_t row = 0; row < m.rows(); row++) {
+    if (row > 0) os << ", ";
+    os << "{";
+    for (std::size_t col = 0; col < m.cols(); col++) {
+      if (col > 0) os << ", ";
+      os << m.at(row, col);
+    }
+    os << "}";
+  }
+  os << "}";
+  return os;
+
+}
+
 }  // namespace data
 }  // namespace math
 }  // namespace cognitoware

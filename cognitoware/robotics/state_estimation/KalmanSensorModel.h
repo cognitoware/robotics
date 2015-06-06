@@ -24,7 +24,7 @@ public:
   KalmanSensorModel() {}
   ~KalmanSensorModel() override {}
 
-  virtual double ConditionalProbabilityOf(Z observation, X state) override {
+  double ConditionalProbabilityOf(const Z& observation, const X& state) const override {
     // TODO: Gaussian moment caches a bunch of stuff. I should store one here
     // instead of generating and solving one each time.
     return math::probability::continuous::GaussianMoment<Z>(

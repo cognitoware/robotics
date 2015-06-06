@@ -9,8 +9,9 @@
 #define COGNITOWARE_MATH_DATA_MATRIX_H_
 
 #include <cmath>
-#include <vector>
+#include <iostream>
 #include <stdexcept>
+#include <vector>
 
 namespace cognitoware {
 namespace math {
@@ -68,6 +69,8 @@ private:
 
   friend Matrix operator*(double scalar, const Matrix& m);
 };
+
+std::ostream& operator<<(std::ostream& os, const Matrix& v);
 
 }  // namespace data
 }  // namespace math

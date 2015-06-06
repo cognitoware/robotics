@@ -8,6 +8,7 @@ CC_SRCS += \
 ../examples/FaultySensorDetection.cc \
 ../examples/ObservableWeatherBayes.cc \
 ../examples/Position1dKalmanFilter.cc \
+../examples/RobotPoseEKF.cc \
 ../examples/Weather.cc \
 ../examples/WeatherMarkovChain.cc 
 
@@ -16,6 +17,7 @@ CC_DEPS += \
 ./examples/FaultySensorDetection.d \
 ./examples/ObservableWeatherBayes.d \
 ./examples/Position1dKalmanFilter.d \
+./examples/RobotPoseEKF.d \
 ./examples/Weather.d \
 ./examples/WeatherMarkovChain.d 
 
@@ -24,6 +26,7 @@ OBJS += \
 ./examples/FaultySensorDetection.o \
 ./examples/ObservableWeatherBayes.o \
 ./examples/Position1dKalmanFilter.o \
+./examples/RobotPoseEKF.o \
 ./examples/Weather.o \
 ./examples/WeatherMarkovChain.o 
 

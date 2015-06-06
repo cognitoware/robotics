@@ -8,6 +8,7 @@
 #ifndef COGNITOWARE_MATH_DATA_VECTOR_H_
 #define COGNITOWARE_MATH_DATA_VECTOR_H_
 
+#include <iostream>
 #include <sstream>
 #include <stdexcept>
 #include <string>
@@ -33,7 +34,7 @@ public:
   double& operator[](std::size_t i);
   double operator[](std::size_t i) const;
   Vector& operator=(const Vector& that);
-  void Set(Vector a);
+  virtual void Set(Vector a);
   void copyAssign(const Vector& v);
   void moveAssign(Vector&& v);
   Vector AliasVector() const;
@@ -43,12 +44,14 @@ public:
   bool operator<(const Vector& v2) const;
   bool operator>(const Vector& v2) const;
   bool operator==(const Vector& v) const;
-  std::string AsString() const;
 protected:
 
 private:
   std::vector<double> a_;
 };
+
+std::ostream& operator<<(std::ostream& os, const Vector& v);
+
 
 #define DEFINE_VECTOR1(X) \
 class X : public ::cognitoware::math::data::Vector { \

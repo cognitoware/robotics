@@ -16,17 +16,14 @@ Vector::Vector() {
 
 Vector::Vector(std::vector<double> a) :
     a_(std::move(a)) {
-  a_.resize(a_.size());
 }
 
 Vector::Vector(const Vector& v) :
     a_(v.a_) {
-  a_.resize(a_.size());
 }
 
 Vector::Vector(Vector && v) :
     a_(std::move(v.a_)) {
-  a_.resize(a_.size());
 }
 
 Vector::Vector(std::size_t order) : a_(order) {
@@ -43,17 +40,6 @@ double Vector::Dot(const Vector& v2) const {
   }
   return result;
 
-}
-
-std::string Vector::AsString() const {
-  std::ostringstream result;
-  result << "{";
-  for (std::size_t i = 0; i < a_.size(); i++) {
-    if (i > 0) result << ", ";
-    result << a_[i];
-  }
-  result << "}";
-  return result.str();
 }
 
 std::size_t Vector::order() const {
@@ -94,7 +80,7 @@ Vector Vector::operator-(const Vector& v2) const {
   if(v1.order() != v2.order()) {
     throw std::runtime_error("Vector sizes are not compatible.");
   }
-  Vector result(std::vector<double>(v1.order()));
+  Vector result(v1.order());
   std::vector<double>& a = result.a_;
   for (std::size_t i = 0; i < a.size(); i++) {
     a[i] = v1.a_[i] - v2.a_[i];
@@ -155,6 +141,16 @@ double Vector::operator[](std::size_t i) const {
 }
 
 Vector Vector::AliasVector() const { return Vector(a_); }
+
+std::ostream& operator<<(std::ostream& os, const Vector& v) {
+  os << v.order() << ":{";
+  for (std::size_t i = 0; i < v.order(); i++) {
+    if (i > 0) os << ", ";
+    os << v[i];
+  }
+  os << "}";
+  return os;
+}
 
 }  // namespace data
 }  // namespace math

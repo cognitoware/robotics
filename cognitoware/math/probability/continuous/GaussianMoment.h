@@ -105,6 +105,12 @@ private:
   mutable bool is_valid_sqrt_ = false;
 };
 
+template<typename X>
+static std::ostream& operator<<(std::ostream& os, GaussianMoment<X> x) {
+  os << "mu=" << x.mean() << ", sigma=" << x.covariance();
+  return os;
+}
+
 }  // namespace continuous
 }  // namespace probability
 }  // namespace math

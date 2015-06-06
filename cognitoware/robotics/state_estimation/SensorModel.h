@@ -18,7 +18,7 @@ public:
   SensorModel() {}
   virtual ~SensorModel() {}
 
-  virtual double ConditionalProbabilityOf(Z observation, X state) = 0;
+  virtual double ConditionalProbabilityOf(const Z& observation, const X& state) const = 0;
 };
 
 }  // namespace state_estimation
