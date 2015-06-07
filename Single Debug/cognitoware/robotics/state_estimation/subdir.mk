@@ -5,7 +5,6 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
 ../cognitoware/robotics/state_estimation/ActionModel_test.cpp \
-../cognitoware/robotics/state_estimation/ExtendedKalmanFilter_test.cpp \
 ../cognitoware/robotics/state_estimation/GaussianActionModel_test.cpp \
 ../cognitoware/robotics/state_estimation/GaussianSensorModel_test.cpp \
 ../cognitoware/robotics/state_estimation/KalmanActionModel_test.cpp \
@@ -15,7 +14,6 @@ CPP_SRCS += \
 
 OBJS += \
 ./cognitoware/robotics/state_estimation/ActionModel_test.o \
-./cognitoware/robotics/state_estimation/ExtendedKalmanFilter_test.o \
 ./cognitoware/robotics/state_estimation/GaussianActionModel_test.o \
 ./cognitoware/robotics/state_estimation/GaussianSensorModel_test.o \
 ./cognitoware/robotics/state_estimation/KalmanActionModel_test.o \
@@ -25,7 +23,6 @@ OBJS += \
 
 CPP_DEPS += \
 ./cognitoware/robotics/state_estimation/ActionModel_test.d \
-./cognitoware/robotics/state_estimation/ExtendedKalmanFilter_test.d \
 ./cognitoware/robotics/state_estimation/GaussianActionModel_test.d \
 ./cognitoware/robotics/state_estimation/GaussianSensorModel_test.d \
 ./cognitoware/robotics/state_estimation/KalmanActionModel_test.d \

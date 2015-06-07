@@ -21,7 +21,7 @@ public:
   ExtendedKalmanSensorModel() {}
   virtual ~ExtendedKalmanSensorModel() {}
 
-  virtual math::data::Matrix GetJacobian(const Z& z, const X& x) const = 0;
+  virtual math::data::Matrix GetJacobian(const X& x) const = 0;
 };
 
 }  // namespace state_estimation

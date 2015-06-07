@@ -19,7 +19,7 @@ template<typename Z, typename X>
 class GaussianSensorModel : public SensorModel<Z, X> {
 public:
   GaussianSensorModel() {}
-  ~GaussianSensorModel() override {}
+  virtual ~GaussianSensorModel() override {}
 
   virtual Z GetMean(const X& state) const = 0;
   virtual math::data::Matrix GetError(const Z& observation) const = 0;

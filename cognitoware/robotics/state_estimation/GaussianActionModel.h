@@ -22,7 +22,9 @@ public:
   }
   virtual ~GaussianActionModel() {}
 
+  // Expected next state.
   virtual X GetMean(const U& action, const X& state) const = 0;
+  // Process noise.
   virtual math::data::Matrix GetError(const U& action, const X& mean) const = 0;
 };
 

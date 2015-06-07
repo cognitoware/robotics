@@ -30,13 +30,6 @@ cognitoware/math/probability/discrete \
 cognitoware/math/probability/continuous \
 cognitoware/math/probability \
 cognitoware/math/data \
-Single\ Debug/examples \
-Single\ Debug/cognitoware/robotics/state_estimation \
-Single\ Debug/cognitoware/robotics \
-Single\ Debug/cognitoware/math/probability/discrete \
-Single\ Debug/cognitoware/math/probability/continuous \
-Single\ Debug/cognitoware/math/probability \
-Single\ Debug/cognitoware/math/data \
 Examples\ Debug/examples \
 Examples\ Debug/cognitoware/robotics \
 Examples\ Debug/cognitoware/math/probability/discrete \
