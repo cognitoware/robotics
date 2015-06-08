@@ -11,8 +11,6 @@
 #include "cognitoware/math/data/Matrix.h"
 #include "cognitoware/math/data/Vector.h"
 #include "cognitoware/math/probability/continuous/GaussianMoment.h"
-#include "cognitoware/robotics/state_estimation/KalmanActionModel.h"
-#include "cognitoware/robotics/state_estimation/KalmanSensorModel.h"
 #include "cognitoware/robotics/state_estimation/KalmanFilter.h"
 #include "gtest/gtest.h"
 

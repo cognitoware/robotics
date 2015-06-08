@@ -9,9 +9,7 @@
 #include "cognitoware/math/data/Vector.h"
 #include "cognitoware/math/probability/continuous/GaussianMoment.h"
 #include "cognitoware/math/probability/RandomDistribution.h"
-#include "cognitoware/robotics/state_estimation/ExtendedKalmanActionModel.h"
 #include "cognitoware/robotics/state_estimation/ExtendedKalmanFilter.h"
-#include "cognitoware/robotics/state_estimation/ExtendedKalmanSensorModel.h"
 #include "gtest/gtest.h"
 
 #include <cmath>

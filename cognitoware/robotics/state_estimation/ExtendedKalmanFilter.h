@@ -11,14 +11,35 @@
 #include "cognitoware/math/data/Matrix.h"
 #include "cognitoware/math/data/Vector.h"
 #include "cognitoware/math/probability/continuous/GaussianMoment.h"
-#include "cognitoware/robotics/state_estimation/ExtendedKalmanActionModel.h"
-#include "cognitoware/robotics/state_estimation/ExtendedKalmanSensorModel.h"
+#include "cognitoware/robotics/state_estimation/GaussianActionModel.h"
+#include "cognitoware/robotics/state_estimation/GaussianSensorModel.h"
 
 #include <memory>
 
 namespace cognitoware {
 namespace robotics {
 namespace state_estimation {
+
+template<typename U, typename X>
+class ExtendedKalmanActionModel : public GaussianActionModel<U, X> {
+public:
+  ExtendedKalmanActionModel() {}
+  virtual ~ExtendedKalmanActionModel() {}
+
+  virtual math::data::Matrix GetStateJacobian(const U& action,
+                                              const X& state) const = 0;
+  virtual math::data::Matrix GetActionJacobian(const U& action,
+                                               const X& state) const = 0;
+};
+
+template<typename Z, typename X>
+class ExtendedKalmanSensorModel : public GaussianSensorModel<Z, X>{
+public:
+  ExtendedKalmanSensorModel() {}
+  virtual ~ExtendedKalmanSensorModel() {}
+
+  virtual math::data::Matrix GetJacobian(const X& x) const = 0;
+};
 
 template<typename X, typename U, typename Z>
 class ExtendedKalmanFilter {
