@@ -47,6 +47,20 @@ public:
       mean_(std::move(mean)), covariance_(std::move(covariance)) {
   }
 
+  GaussianMoment(GaussianMoment<X>&& that) :
+      mean_(std::move(that.mean_)), covariance_(std::move(that.covariance_)) {
+  }
+
+  GaussianMoment<X>& operator=(GaussianMoment<X>&& that) {
+      this->mean_ = std::move(that.mean_);
+      this->covariance_ = std::move(that.covariance_);
+      this->inverse_covariance_ = std::move(that.inverse_covariance_);
+      this->srqt_covariance_ = std::move(that.srqt_covariance_);
+      this->is_valid_inverse_ = is_valid_inverse_;
+      this->is_valid_sqrt_ = is_valid_sqrt_;
+      return *this;
+  }
+
   virtual ~GaussianMoment() {
   }
 
@@ -106,7 +120,7 @@ private:
 };
 
 template<typename X>
-static std::ostream& operator<<(std::ostream& os, GaussianMoment<X> x) {
+static std::ostream& operator<<(std::ostream& os, const GaussianMoment<X>& x) {
   os << "mu=" << x.mean() << ", sigma=" << x.covariance();
   return os;
 }

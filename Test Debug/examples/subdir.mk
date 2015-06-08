@@ -6,6 +6,7 @@
 CC_SRCS += \
 ../examples/DoorOpener.cc \
 ../examples/FaultySensorDetection.cc \
+../examples/LocalizationParametricFilterRoundup.cc \
 ../examples/ObservableWeatherBayes.cc \
 ../examples/Position1dKalmanFilter.cc \
 ../examples/RobotPoseEKF.cc \
@@ -15,6 +16,7 @@ CC_SRCS += \
 CC_DEPS += \
 ./examples/DoorOpener.d \
 ./examples/FaultySensorDetection.d \
+./examples/LocalizationParametricFilterRoundup.d \
 ./examples/ObservableWeatherBayes.d \
 ./examples/Position1dKalmanFilter.d \
 ./examples/RobotPoseEKF.d \
@@ -24,6 +26,7 @@ CC_DEPS += \
 OBJS += \
 ./examples/DoorOpener.o \
 ./examples/FaultySensorDetection.o \
+./examples/LocalizationParametricFilterRoundup.o \
 ./examples/ObservableWeatherBayes.o \
 ./examples/Position1dKalmanFilter.o \
 ./examples/RobotPoseEKF.o \
