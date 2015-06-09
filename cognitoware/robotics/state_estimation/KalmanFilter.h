@@ -23,7 +23,7 @@ namespace state_estimation {
 template<typename U, typename X>
 class KalmanActionModel : public GaussianActionModel<U, X> {
 public:
-  KalmanActionModel() {
+  KalmanActionModel(int x_order, int u_order) : a_(x_order, x_order), b_(x_order, u_order), c_(x_order), r_(x_order, x_order){
   }
 
   ~KalmanActionModel() override {
@@ -36,7 +36,7 @@ public:
   }
 
   math::data::Matrix GetError(const U&, const X&) const override {
-    return math::data::Matrix(r());
+    return r_;
   }
 
   const math::data::Matrix& a() const {
@@ -78,7 +78,9 @@ private:
 template<typename Z, typename X>
 class KalmanSensorModel : public GaussianSensorModel<Z, X>{
 public:
-  KalmanSensorModel() {}
+  KalmanSensorModel(int x_order, int z_order) :
+      c_(x_order, z_order), d_(x_order), q_(z_order, z_order) {
+  }
   ~KalmanSensorModel() override {}
 
   double ConditionalProbabilityOf(const Z& observation, const X& state) const override {
@@ -90,7 +92,7 @@ public:
 
   Z GetMean(const X& state) const override {
     Z z;
-    z.Set(c_ * state);
+    z.Set(c_ * state + d_);
     return z;
   }
 
@@ -99,15 +101,21 @@ public:
   }
 
   const math::data::Matrix& c() const {
-    // n x n
     return c_;
   }
+
+  const math::data::Vector& d() const {
+    return d_;
+  }
+
   const math::data::Matrix& q() const {
-    // n x n
     return q_;
   }
   math::data::Matrix& c() {
     return c_;
+  }
+  math::data::Vector& d() {
+    return d_;
   }
   math::data::Matrix& q() {
     return q_;
@@ -115,6 +123,7 @@ public:
 
 private:
   math::data::Matrix c_;
+  math::data::Vector d_;
   math::data::Matrix q_;
 };
 

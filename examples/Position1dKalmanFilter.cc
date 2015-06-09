@@ -80,7 +80,7 @@ std::ostream& operator<<(std::ostream& os, const GaussianMoment<State>& x) {
 }
 
 std::shared_ptr<ActionModel> CreateActionModel() {
-  auto action_model = std::make_shared<ActionModel>();
+  auto action_model = std::make_shared<ActionModel>(2, 1);
   action_model->a() = Matrix(2, 2, ma({1.0, 1.0, 0.0, 1.0}));
   // position = position+velocity.
   // velocity = velocity
@@ -93,8 +93,9 @@ std::shared_ptr<ActionModel> CreateActionModel() {
 }
 
 std::shared_ptr<SensorModel> CreateSensorModel() {
-  auto sensor_model = std::make_shared<SensorModel>();
+  auto sensor_model = std::make_shared<SensorModel>(2, 1);
   sensor_model->c() = Matrix(2, 2, ma({1, 0, 0, 1}));
+  sensor_model->d() = Vector({0, 0});
   // our velocity sensors are very bad
   sensor_model->q() = Matrix(2, 2, ma({10, 0, 0, 10000}));
   return sensor_model;

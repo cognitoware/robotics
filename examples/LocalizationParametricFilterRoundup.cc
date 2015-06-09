@@ -50,12 +50,16 @@ DEFINE_VECTOR1(Z);
 class RobotSimulator {
 public:
 
-  X UpdateState(const X& x, const U& u) {
+  void UpdateState(const U& u) {
     double u_err = action_noise_.Sample(&generator_)[0];
     double actual_u = u[0] + u[0]*u_err;
     double process_err = process_noise_.Sample(&generator_)[0];
     double dx = actual_state_[0] + actual_u;
     actual_state_ = X(dx + dx*process_err);
+  }
+
+  X UpdateState(const X& x, const U& u) {
+    UpdateState(u);
 
     double expected_x = x[0];
     double expected_u = u[0];
@@ -84,6 +88,67 @@ public:
   // The position resulting from an action is off by a bit.
   GaussianMoment<X> process_noise_ = GaussianMoment<X>(X(0.0), Matrix(1, 1, {0}));
 };
+
+class EKFActionModel : public ExtendedKalmanActionModel<U, X> {
+public:
+  EKFActionModel() : r_(1, 1) {}
+
+  Matrix GetStateJacobian(const U&,
+                          const X&) const override {
+    // x_next = x + u
+    return Matrix(1, 1, {1});
+  }
+  Matrix GetActionJacobian(const U&,
+                           const X&) const override {
+    return Matrix(1, 1, {1});
+  }
+
+  X GetMean(const U& u, const X& x) const override {
+    return X(x[0] + u[0]);
+  }
+
+  Matrix GetError(const U&, const X&) const override {
+    return r_;
+  }
+
+  std::shared_ptr<RandomDistribution<X>> ConditionBy(
+      const U& u, const X& x) {
+    return std::make_shared<GaussianMoment<X>>(
+        GetMean(u, x),
+        GetError(u, x));
+  }
+
+  Matrix r_;
+};
+
+class EKFSensorModel : public ExtendedKalmanSensorModel<Z, X> {
+public:
+  EKFSensorModel() : q_(1, 1, {0.01}) {
+  }
+
+  double ConditionalProbabilityOf(const Z& observation,
+                                  const X& state) const override {
+    GaussianMoment<X> likelihood(state, q_);
+    X observed_x(10.0 - observation[0]);
+    return likelihood.ProbabilityOf(observed_x);
+  }
+
+  Z GetMean(const X& state) const override {
+    return Z(10.0 - state[0]);
+  }
+
+  Matrix GetError(const Z&) const override {
+    return q_;
+  }
+
+  Matrix GetJacobian(const X&) const override {
+    // z = 10 - x
+    // x/dx = -1
+    return Matrix(1, 1, {-1});
+  }
+
+  Matrix q_;
+};
 }  // namespace
 
 TEST(LocalizationParametricFilterRoundup, PerfectInformation) {
@@ -99,7 +164,7 @@ TEST(LocalizationParametricFilterRoundup, PerfectInformation) {
     // No filter needed. If state ever differs from inferred state then the world is broken.
     std::cout << "See: " << state << " (after observing " << inferred_state << ")" << std::endl;
   }
-  std::cout << "End: " << state << std::endl;
+  std::cout << "End: " << state << " (actual " << sim.actual_state_ << ")" << std::endl;
 }
 
 TEST(LocalizationParametricFilterRoundup, NoiseNoObservation) {
@@ -115,7 +180,7 @@ TEST(LocalizationParametricFilterRoundup, NoiseNoObservation) {
     std::cout << "Act: " << state_belief << " (actual " << sim.actual_state_ << ")" << std::endl;
     sim.ObserveLandmark();
   }
-  std::cout << "End: " << state_belief << std::endl;
+  std::cout << "End: " << state_belief << " (actual " << sim.actual_state_ << ")" << std::endl;
 }
 
 TEST(LocalizationParametricFilterRoundup, FirstFilter) {
@@ -136,10 +201,71 @@ TEST(LocalizationParametricFilterRoundup, FirstFilter) {
     std::cout << "See: " << state_belief << " (inferred " << inferred_state << ")" << std::endl;
 
   }
-  std::cout << "End: " << state_belief << std::endl;
+  std::cout << "End: " << state_belief << " (actual " << sim.actual_state_ << ")" << std::endl;
 }
 
+TEST(LocalizationParametricFilterRoundup, KalmanFilter) {
+  RobotSimulator sim;
+  sim.action_noise_ = GaussianMoment<U>(U(0.0), Matrix(1, 1, {0.0004}));
+  sim.sensor_noise_ = GaussianMoment<Z>(Z(0.0), Matrix(1, 1, {0.0016}));
+  sim.process_noise_ = GaussianMoment<X>(Z(0.0), Matrix(1, 1, {0.0004}));
 
+  KalmanActionModel<U, X> action_model(1, 1);
+  action_model.a() = Matrix(1,1,{1.0});
+  action_model.b() = Matrix(1,1,{1.0});
+  action_model.c() = Vector(std::vector<double>({0.0}));
+  // We overestimate the error because over-fitting is worse than under-fitting.
+  action_model.r() = 2*(sim.action_noise_.covariance() + sim.process_noise_.covariance());
+
+  KalmanSensorModel<Z, X> sensor_model(1, 1);
+  // setup the sensor model to convert the observation to an expected state
+  sensor_model.c() = Matrix(1,1,{-1.0});
+  sensor_model.d().Set(sim.landmark_position_.AliasVector());
+  // Again, we over-estimate the error.
+  sensor_model.q() = 2*sim.sensor_noise_.covariance();
+
+  KalmanFilter<X, U, Z> filter;
+
+  // We know with perfect certainty that we start at 0.0
+  auto state_belief = std::make_shared<GaussianMoment<X>>(0.0, Matrix(1, 1, {0}));
+  std::cout << "Start: " << *state_belief << std::endl;
+  for(const U& action : actions) {
+    sim.UpdateState(action);
+    state_belief = filter.Marginalize(action_model, action, *state_belief);
+    std::cout << "Act: " << *state_belief << " (actual " << sim.actual_state_ << ")" << std::endl;
+    Z observation = sim.ObserveLandmark();
+    state_belief = filter.BayesianInference(sensor_model, observation, *state_belief);
+    std::cout << "See: " << *state_belief << " (actual " << sim.actual_state_ << ")" << std::endl;
+  }
+  std::cout << "End: " << *state_belief << " (actual " << sim.actual_state_ << ")" << std::endl;
+}
+
+TEST(LocalizationParametricFilterRoundup, ExtendedKalmanFilter) {
+  RobotSimulator sim;
+  sim.action_noise_ = GaussianMoment<U>(U(0.0), Matrix(1, 1, {0.0004}));
+  sim.sensor_noise_ = GaussianMoment<Z>(Z(0.0), Matrix(1, 1, {0.0016}));
+  sim.process_noise_ = GaussianMoment<X>(Z(0.0), Matrix(1, 1, {0.0004}));
+
+  EKFActionModel action_model;
+  action_model.r_ = 2*(sim.action_noise_.covariance() + sim.process_noise_.covariance());
+  EKFSensorModel sensor_model;
+  sensor_model.q_ = 2*sim.sensor_noise_.covariance();
+
+  ExtendedKalmanFilter<X, U, Z> filter;
+
+  // We know with perfect certainty that we start at 0.0
+  auto state_belief = std::make_shared<GaussianMoment<X>>(0.0, Matrix(1, 1, {0}));
+  std::cout << "Start: " << *state_belief << std::endl;
+  for(const U& action : actions) {
+    sim.UpdateState(action);
+    state_belief = filter.Marginalize(action_model, action, *state_belief);
+    std::cout << "Act: " << *state_belief << " (actual " << sim.actual_state_ << ")" << std::endl;
+    Z observation = sim.ObserveLandmark();
+    state_belief = filter.BayesianInference(sensor_model, observation, *state_belief);
+    std::cout << "See: " << *state_belief << " (actual " << sim.actual_state_ << ")" << std::endl;
+  }
+  std::cout << "End: " << *state_belief << " (actual " << sim.actual_state_ << ")" << std::endl;
+}
 
 }  // namespace examples
 
