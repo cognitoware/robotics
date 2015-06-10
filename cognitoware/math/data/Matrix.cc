@@ -6,6 +6,9 @@
  */
 
 #include "cognitoware/math/data/Matrix.h"
+#include "cognitoware/math/data/Vector.h"
+
+#include <algorithm>
 
 namespace cognitoware {
 namespace math {
@@ -62,6 +65,24 @@ std::size_t Matrix::order() const {
 
 double Matrix::at(std::size_t row, std::size_t col) const {
   return m_[GetIndex(row, col)];
+}
+
+Vector Matrix::GetColumn(int col) const {
+  Vector result;
+  std::vector<double> a(rows_);
+  if (row_based_) {
+    for (std::size_t i = 0; i < a.size(); i++) {
+      a[i] = at(i, col);
+    }
+  } else {
+    std::size_t col_start = GetIndex(0, col);
+    std::size_t col_end = col_start + a.size();
+    std::copy(
+        m_.begin() + col_start,
+        m_.begin() + col_end,
+        a.begin());
+  }
+  return Vector(a);
 }
 
 Matrix& Matrix::operator=(Matrix&& that) {
@@ -271,6 +292,21 @@ Matrix Matrix::LUDecompositionByGE(int* p_swap_count,
     throw std::runtime_error("Matrix is singular.");
   }
   return m;
+}
+
+Matrix Matrix::RoundSymmetry() {
+  std::vector<double> a(m_.size());
+  for (std::size_t i = 0; i < rows_; i++) {
+    std::size_t diagIndex = GetIndex(i, i);
+    a[diagIndex] = m_[diagIndex];
+    for (std::size_t j = i + 1; j < cols_; j++) {
+      std::size_t i1 = GetIndex(i, j);
+      std::size_t i2 = GetIndex(j, i);
+      double mean = (m_[i1] + m_[i2]) / 2;
+      a[i1] = a[i2] = mean;
+    }
+  }
+  return Matrix(rows_, cols_, a);
 }
 
 std::size_t Matrix::GetIndex(std::size_t row, std::size_t col) const {

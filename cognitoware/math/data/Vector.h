@@ -8,6 +8,8 @@
 #ifndef COGNITOWARE_MATH_DATA_VECTOR_H_
 #define COGNITOWARE_MATH_DATA_VECTOR_H_
 
+#include "cognitoware/math/data/Matrix.h"
+
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -19,6 +21,8 @@
 namespace cognitoware {
 namespace math {
 namespace data {
+
+class Matrix;
 
 class Vector {
 public:
@@ -33,6 +37,7 @@ public:
   double at(int i) const;
   double& operator[](std::size_t i);
   double operator[](std::size_t i) const;
+  Matrix Cross(const Vector& that) const;
   Vector& operator=(const Vector& that);
   virtual void Set(Vector a);
   void copyAssign(const Vector& v);

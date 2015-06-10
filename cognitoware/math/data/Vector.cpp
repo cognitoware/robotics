@@ -26,7 +26,8 @@ Vector::Vector(Vector && v) :
     a_(std::move(v.a_)) {
 }
 
-Vector::Vector(std::size_t order) : a_(order) {
+Vector::Vector(std::size_t order) :
+    a_(order) {
 }
 
 Vector::~Vector() {
@@ -47,9 +48,9 @@ std::size_t Vector::order() const {
 }
 
 void Vector::Set(Vector a) {
-  if( order() != a.order() ) {
+  if (order() != a.order()) {
     throw std::runtime_error(
-          "Length of array is different from the Vector expected order.");
+        "Length of array is different from the Vector expected order.");
   }
   a_ = std::move(a.a_);
 }
@@ -64,7 +65,7 @@ double Vector::at(int i) const {
 
 Vector Vector::operator+(const Vector& v2) const {
   const Vector& v1 = *this;
-  if(v1.order() != v2.order()) {
+  if (v1.order() != v2.order()) {
     throw std::runtime_error("Vector sizes are not compatible.");
   }
   Vector result(std::vector<double>(v1.order()));
@@ -77,7 +78,7 @@ Vector Vector::operator+(const Vector& v2) const {
 
 Vector Vector::operator-(const Vector& v2) const {
   const Vector& v1 = *this;
-  if(v1.order() != v2.order()) {
+  if (v1.order() != v2.order()) {
     throw std::runtime_error("Vector sizes are not compatible.");
   }
   Vector result(v1.order());
@@ -140,7 +141,23 @@ double Vector::operator[](std::size_t i) const {
   return a_[i];
 }
 
-Vector Vector::AliasVector() const { return Vector(a_); }
+Matrix Vector::Cross(const Vector& that) const {
+  std::vector<double> m(order() * that.order());
+  int k = 0;
+  for (std::size_t i = 0; i < order(); i++) {
+    double a = a_[i];
+    for (std::size_t j = 0; j < that.order(); j++) {
+      double b = that[j];
+      m[k] = a * b;
+      k++;
+    }
+  }
+  return Matrix(order(), that.order(), m);
+}
+
+Vector Vector::AliasVector() const {
+  return Vector(a_);
+}
 
 std::ostream& operator<<(std::ostream& os, const Vector& v) {
   os << v.order() << ":{";

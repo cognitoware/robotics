@@ -17,6 +17,8 @@ namespace cognitoware {
 namespace math {
 namespace data {
 
+class Vector;
+
 class Matrix {
 public:
   static Matrix Identity(size_t order) {
@@ -40,6 +42,7 @@ public:
   std::size_t cols() const;
   std::size_t order() const;
   double at(std::size_t row, std::size_t col) const;
+  Vector GetColumn(int col) const;
   Matrix& operator=(Matrix&& that);
   Matrix& operator+=(const Matrix& that);
   Matrix operator+(const Matrix& that) const;
@@ -53,6 +56,7 @@ public:
   void CombineRow(std::size_t srcRow, std::size_t dstRow, double k);
   Matrix LUDecompositionByGE(int* p_swap_count,
                              std::vector<std::size_t>* p_pivot) const;
+  Matrix RoundSymmetry();
 
 private:
   std::size_t GetIndex(std::size_t row, std::size_t col) const;
@@ -61,7 +65,6 @@ private:
                       int* p_swap_count) const;
   bool IsSymmetric() const;
   Matrix CholeskyDecomposition() const;
-
   std::size_t rows_;
   std::size_t cols_;
   std::vector<double> m_;
