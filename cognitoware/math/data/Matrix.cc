@@ -67,7 +67,7 @@ double Matrix::at(std::size_t row, std::size_t col) const {
   return m_[GetIndex(row, col)];
 }
 
-Vector Matrix::GetColumn(int col) const {
+Vector Matrix::GetColumn(std::size_t col) const {
   Vector result;
   std::vector<double> a(rows_);
   if (row_based_) {

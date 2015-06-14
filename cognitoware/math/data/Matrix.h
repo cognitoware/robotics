@@ -42,7 +42,7 @@ public:
   std::size_t cols() const;
   std::size_t order() const;
   double at(std::size_t row, std::size_t col) const;
-  Vector GetColumn(int col) const;
+  Vector GetColumn(std::size_t col) const;
   Matrix& operator=(Matrix&& that);
   Matrix& operator+=(const Matrix& that);
   Matrix operator+(const Matrix& that) const;
