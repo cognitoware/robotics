@@ -18,7 +18,10 @@ namespace data {
 
 Vector operator*(const Matrix& m, const Vector& v) {
   if (m.cols() != v.order()) {
-    throw std::runtime_error("Matrix and Vector sizes not compatible.");
+    std::stringstream error_message;
+    error_message << "Matrix and Vector sizes not compatible "
+                  << "(" << m << " * " << v << ")";
+    throw std::runtime_error(error_message.str());
   }
   std::vector<double> result(m.rows());
   for (std::size_t row = 0; row < m.rows(); row++) {

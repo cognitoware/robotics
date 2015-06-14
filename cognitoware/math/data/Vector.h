@@ -30,7 +30,7 @@ public:
   explicit Vector(std::vector<double> a);
   explicit Vector(const Vector& v);
   Vector(Vector && v);
-  Vector(std::size_t order);
+  explicit Vector(std::size_t order);
   virtual ~Vector();
   std::size_t order() const;
   double& at(int i);

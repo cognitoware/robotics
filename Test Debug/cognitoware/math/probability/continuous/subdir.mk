@@ -4,12 +4,15 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
+../cognitoware/math/probability/continuous/GaussianCanonical_test.cpp \
 ../cognitoware/math/probability/continuous/GaussianMoment_test.cpp 
 
 OBJS += \
+./cognitoware/math/probability/continuous/GaussianCanonical_test.o \
 ./cognitoware/math/probability/continuous/GaussianMoment_test.o 
 
 CPP_DEPS += \
+./cognitoware/math/probability/continuous/GaussianCanonical_test.d \
 ./cognitoware/math/probability/continuous/GaussianMoment_test.d 
 
 

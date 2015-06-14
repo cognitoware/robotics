@@ -16,6 +16,7 @@
 #include "cognitoware/math/probability/continuous/GaussianMoment.h"
 #include "cognitoware/math/probability/RandomDistribution.h"
 #include "cognitoware/robotics/state_estimation/ExtendedKalmanFilter.h"
+#include "cognitoware/robotics/state_estimation/InformationFilter.h"
 #include "cognitoware/robotics/state_estimation/KalmanFilter.h"
 #include "cognitoware/robotics/state_estimation/UnscentedKalmanFilter.h"
 #include "gtest/gtest.h"
@@ -27,6 +28,7 @@
 
 using ::cognitoware::math::data::Matrix;
 using ::cognitoware::math::data::Vector;
+using ::cognitoware::math::probability::continuous::GaussianCanonical;
 using ::cognitoware::math::probability::continuous::GaussianMoment;
 using ::cognitoware::math::probability::RandomDistribution;
 using ::cognitoware::robotics::state_estimation::ExtendedKalmanActionModel;
@@ -34,6 +36,7 @@ using ::cognitoware::robotics::state_estimation::ExtendedKalmanFilter;
 using ::cognitoware::robotics::state_estimation::ExtendedKalmanSensorModel;
 using ::cognitoware::robotics::state_estimation::GaussianActionModel;
 using ::cognitoware::robotics::state_estimation::GaussianSensorModel;
+using ::cognitoware::robotics::state_estimation::InformationFilter;
 using ::cognitoware::robotics::state_estimation::KalmanActionModel;
 using ::cognitoware::robotics::state_estimation::KalmanFilter;
 using ::cognitoware::robotics::state_estimation::KalmanSensorModel;
@@ -289,6 +292,44 @@ TEST(LocalizationParametricFilterRoundup, UnscentedKalmanFilter) {
 
   // We know with perfect certainty that we start at 0.0
   auto state_belief = std::make_shared<GaussianMoment<X>>(0.0, Matrix(1, 1, {0}));
+  std::cout << "Start: " << *state_belief << std::endl;
+  for(const U& action : actions) {
+    sim.UpdateState(action);
+    state_belief = filter.Marginalize(action_model, action, *state_belief);
+    std::cout << "Act: " << *state_belief << " (actual " << sim.actual_state_ << ")" << std::endl;
+    Z observation = sim.ObserveLandmark();
+    state_belief = filter.BayesianInference(sensor_model, observation, *state_belief);
+    std::cout << "See: " << *state_belief << " (actual " << sim.actual_state_ << ")" << std::endl;
+  }
+  std::cout << "End: " << *state_belief << " (actual " << sim.actual_state_ << ")" << std::endl;
+}
+
+TEST(LocalizationParametricFilterRoundup, InformationFilter) {
+  RobotSimulator sim;
+  sim.action_noise_ = GaussianMoment<U>(U(0.0), Matrix(1, 1, {0.0004}));
+  sim.sensor_noise_ = GaussianMoment<Z>(Z(0.0), Matrix(1, 1, {0.0016}));
+  sim.process_noise_ = GaussianMoment<X>(Z(0.0), Matrix(1, 1, {0.0004}));
+
+  KalmanActionModel<U, X> action_model(1, 1);
+  action_model.a() = Matrix(1,1,{1.0});
+  action_model.b() = Matrix(1,1,{1.0});
+  action_model.c() = Vector(std::vector<double>({0.0}));
+  // We overestimate the error because over-fitting is worse than under-fitting.
+  action_model.r() = 2*(sim.action_noise_.covariance() + sim.process_noise_.covariance());
+
+  KalmanSensorModel<Z, X> sensor_model(1, 1);
+  // setup the sensor model to convert the observation to an expected state
+  sensor_model.c() = Matrix(1,1,{-1.0});
+  sensor_model.d().Set(sim.landmark_position_.AliasVector());
+  // Again, we over-estimate the error.
+  sensor_model.q() = 2*sim.sensor_noise_.covariance();
+
+  InformationFilter<X, U, Z> filter;
+
+  // We know with perfect certainty that we start at 0.0
+  auto state_belief = std::make_shared<GaussianCanonical<X>>(
+      Vector(std::vector<double>({0.0})),
+      Matrix(1, 1, {1}));
   std::cout << "Start: " << *state_belief << std::endl;
   for(const U& action : actions) {
     sim.UpdateState(action);
