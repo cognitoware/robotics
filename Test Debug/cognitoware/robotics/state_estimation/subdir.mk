@@ -4,18 +4,21 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
+../cognitoware/robotics/state_estimation/ExtendedInformationFilter_test.cpp \
 ../cognitoware/robotics/state_estimation/ExtendedKalmanFilter_test.cpp \
 ../cognitoware/robotics/state_estimation/InformationFilter_test.cpp \
 ../cognitoware/robotics/state_estimation/KalmanFilter_test.cpp \
 ../cognitoware/robotics/state_estimation/UnscentedKalmanFilter_test.cpp 
 
 OBJS += \
+./cognitoware/robotics/state_estimation/ExtendedInformationFilter_test.o \
 ./cognitoware/robotics/state_estimation/ExtendedKalmanFilter_test.o \
 ./cognitoware/robotics/state_estimation/InformationFilter_test.o \
 ./cognitoware/robotics/state_estimation/KalmanFilter_test.o \
 ./cognitoware/robotics/state_estimation/UnscentedKalmanFilter_test.o 
 
 CPP_DEPS += \
+./cognitoware/robotics/state_estimation/ExtendedInformationFilter_test.d \
 ./cognitoware/robotics/state_estimation/ExtendedKalmanFilter_test.d \
 ./cognitoware/robotics/state_estimation/InformationFilter_test.d \
 ./cognitoware/robotics/state_estimation/KalmanFilter_test.d \

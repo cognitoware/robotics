@@ -27,7 +27,7 @@ template<typename X>
 class GaussianCanonical : public RandomDistribution<X> {
 public:
 
-  GaussianCanonical(data::Vector xi, data::Matrix omega) :
+  GaussianCanonical(const data::Vector& xi, const data::Matrix& omega) :
       information_(std::move(xi)),
           precision_(std::move(omega)),
           sigma_(omega.rows(), omega.cols()),
@@ -76,7 +76,7 @@ public:
     return GetMu();
   }
 
-  data::Matrix InversePrecision() const {
+  const data::Matrix& InversePrecision() const {
     if (!is_sigma_valid_) {
       sigma_ = precision().Inverse();
       is_sigma_valid_ = true;
@@ -84,7 +84,7 @@ public:
     return sigma_;
   }
 
-  X GetMu() const {
+  const X& GetMu() const {
     if (!is_mu_valid_) {
       mu_.Set(sigma() * information());
       is_mu_valid_ = true;

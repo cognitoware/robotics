@@ -21,7 +21,8 @@ public:
   InformationFilter() {}
   virtual ~InformationFilter() {}
 
-  std::shared_ptr<math::probability::continuous::GaussianCanonical<X>> Marginalize(
+  std::shared_ptr<math::probability::continuous::GaussianCanonical<X>>
+  Marginalize(
       const KalmanActionModel<U, X>& model, const U& action,
       const math::probability::continuous::GaussianCanonical<X>& belief) {
     using math::data::Matrix;
@@ -44,8 +45,10 @@ public:
     return std::make_shared<GaussianCanonical<X>>(std::move(nextXi), std::move(nextOmega));
   }
 
-  std::shared_ptr<math::probability::continuous::GaussianCanonical<X>> BayesianInference(
-      const KalmanSensorModel<Z, X>& model, const Z& data,
+  std::shared_ptr<math::probability::continuous::GaussianCanonical<X>>
+  BayesianInference(
+      const KalmanSensorModel<Z, X>& model,
+      const Z& data,
       const math::probability::continuous::GaussianCanonical<X>& belief) {
     using math::data::Matrix;
     using math::data::Vector;
