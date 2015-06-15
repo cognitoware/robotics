@@ -15,14 +15,12 @@
 #include "cognitoware/math/probability/RandomDistribution.h"
 #include "cognitoware/math/probability/IndependentPairDistribution.h"
 #include "cognitoware/robotics/MarkovActionChain.h"
-#include "cognitoware/robotics/ObservationGenerator.h"
 #include "gtest/gtest.h"
 
 #include <memory>
 #include <vector>
 
 using ::cognitoware::robotics::MarkovActionChain;
-using ::cognitoware::robotics::ObservationGenerator;
 using ::cognitoware::math::probability::IndependentPairDistribution;
 using ::cognitoware::math::probability::RandomConditional;
 using ::cognitoware::math::probability::RandomDistribution;
@@ -90,7 +88,7 @@ std::ostream& operator<<(std::ostream& os,
   return os;
 }
 
-class Door : public ObservationGenerator<DoorObservation> {
+class Door {
 public:
   Door(std::default_random_engine* generator) {
     p_ = 0.0;
@@ -124,7 +122,7 @@ public:
   }
 
   void CreateObservation(std::default_random_engine* generator,
-                         DoorObservation* result_out) const override {
+                         DoorObservation* result_out) const {
     std::uniform_real_distribution<double> random(0, 1);
     *result_out = pxz_->SampleLikelihood(state_, random(*generator));
   }
